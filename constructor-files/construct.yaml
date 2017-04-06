@@ -1,0 +1,25 @@
+name: psyplot-conda
+version: 0.01
+
+channels:
+    - https://conda.anaconda.org/conda-forge
+    - http://repo.continuum.io/pkgs/free/
+    - https://conda.anaconda.org/chilipp
+
+specs:
+    # Specs for psyplot-conda. Note that they are replaced by the
+    # prepare_constructor_files.py script and psyplot, psy-maps, etc. are
+    # inserted as local packages
+    - psyplot
+    - psyplot-gui
+    - psy-reg
+    - psy-maps
+    # other dependencies
+    - dask
+    - netcdf4
+    - seaborn
+    - bottleneck
+
+license_file: EULA.txt
+
+welcome_image: logo.png                  [win]
