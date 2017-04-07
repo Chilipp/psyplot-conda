@@ -1,0 +1,32 @@
+name: psyplot_conda
+channels:
+    - chilipp
+    - conda-forge
+dependencies:
+    # psyplot
+    - matplotlib
+    - xarray
+    - docrep
+    - funcargparse
+    - numpy
+    # psy-simple
+    - seaborn
+    # psy-maps
+    - cartopy
+    # psy-reg
+    - scipy
+    - statsmodels
+    # psyplot-gui
+    - qtconsole
+    - pyqt
+    - sphinx
+    - fasteners
+    - sphinx
+    - sphinx_rtd_theme
+    # miscellaneous
+    - dask
+    - netcdf4
+    - openblas
+    - bottleneck
+    - libgfortran
+    
