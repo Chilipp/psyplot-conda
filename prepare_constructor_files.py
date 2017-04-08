@@ -1,5 +1,6 @@
 # Python script to prepare the psyplot-conda constructor files
 import sys
+import six
 import os.path as osp
 import shutil
 from itertools import chain
@@ -81,7 +82,9 @@ local_versions = OrderedDict([(pkg, get_version(pkg)[0]) for pkg in
                               map(osp.basename, local_packages)])
 
 with open(args.environment_file) as f:
-    other_pkgs = yaml.load(f)['dependencies']
+    other_pkgs = [
+        pkg.split('=')[0] for pkg in yaml.load(f)['dependencies']
+        if isinstance(pkg, six.string_types)]
 
 other_versions = {pkg: get_version(pkg) for pkg in other_pkgs}
 
