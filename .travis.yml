@@ -65,6 +65,9 @@ install:
   - for f in $HOME/miniconda/pkgs/*.tar.bz2; do
         ln -s $f "${CONSTRUCTOR_CONFIG}/`basename $f`";
     done
+  # update psy-simple and psy-maps reference figures submodules
+  - cd psy-simple && git submodule update --init `python tests/get_ref_dir.py` && cd ..
+  - cd psy-maps && git submodule update --init `python tests/get_ref_dir.py` && cd ..
   # print debugging informations  
   - conda env export -n root
   # print versions of all the important requirements
@@ -92,3 +95,9 @@ script:
   - py.test -v psyplot
   # run tests for psyplot-gui
   - py.test -v psyplot-gui
+  # run (some) tests for psy-simple
+  - py.test -v psy-simple -k LinePlotterTest2D Simple2DPlotterTest2D
+  # run (some) tests for psy-maps
+  - py.test -v psy-maps -k FieldPlotterTest IconFieldPlotterTest
+  # run tests for psy-reg
+  - py.test -v psy-reg
