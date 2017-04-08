@@ -137,10 +137,10 @@ construct['specs'] = ['python %s*' % py_version, 'conda', 'pip'] + [
 builds = []
 for pkg_path in local_packages:
     if not args.no_build:
-        spr.check_call(['conda', 'build', pkg_path, '--no-test', '--python', '3.6'],
+        spr.check_call(['conda', 'build', pkg_path, '--no-test'],
                        stdout=sys.stdout, stderr=sys.stderr)
     builds.append(file2html(spr.check_output(
-        ['conda', 'build', pkg_path, '--output', '--python', '3.6']).decode(
+        ['conda', 'build', pkg_path, '--output']).decode(
             'utf-8').strip()))
 if builds:
     construct['packages'] = builds
