@@ -56,6 +56,15 @@ install:
   - python recipe_from_setup.py psy-simple recipes
   - python recipe_from_setup.py psy-maps recipes
   - python recipe_from_setup.py psy-reg recipes
+  # link the already downloaded conda packages to the constructor config to
+  # speed up the build
+  - CONSTRUCTOR_CONFIG=$HOME/.conda/constructor/$TRAVIS_OS_NAME-64
+  - if [[ ! -e $CONSTRUCTOR_CONFIG ]]; then
+        mkdir -p $CONSTRUCTOR_CONFIG;
+    fi
+  - for f in $HOME/miniconda/pkgs/*.tar.bz2; do
+        ln -s $f "${CONSTRUCTOR_CONFIG}/`basename $f`";
+    done
   # print debugging informations  
   - conda env export -n root
   # print versions of all the important requirements
@@ -74,7 +83,7 @@ script:
   # construct the executable
   - constructor psyplot-conda
   # execute the executable
-  - bash "psyplot-conda-*-${OS_NAME}-*.sh" -p $HOME/psyplot-conda -b
+  - bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
   # export the new path and remove current miniconda installation
   - export PATH="$HOME/miniconda/bin:$ORIG_PATH" && hash -r
   # install pytest
