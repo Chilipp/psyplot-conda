@@ -1,0 +1,74 @@
+environment:
+
+  PYTHON_ARCH: "64"
+  PYTHON: "C:\\Python36-conda64"
+
+  matrix:
+    - PYTHON_VERSION: "3.6"
+os: unstable
+install:
+  # Install miniconda Python
+  - "powershell ./ci/install_python.ps1"
+   # Prepend newly installed Python to the PATH of this build (this cannot be
+  # done from inside the powershell script as it would require to restart
+  # the parent CMD process).
+  - "SET ORIGPATH=%PATH%"
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%ORIGPATH%"
+
+  # Check that we have the expected version and architecture for Python
+  - "python --version"
+  - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
+  # use an innocent matplotlibrc
+  - copy /y nul matplotlibrc
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  # Useful for debugging any issues with conda
+  - conda info -a
+  - conda env update -n root -f environment.yml
+  - conda install constructor conda-build
+  # install the submodules
+  - cd psyplot && python setup.py install && cd ../
+  - cd psyplot-gui && python setup.py install && cd ../
+  - cd psy-simple && python setup.py install && cd ../
+  - cd psy-maps && python setup.py install && cd ../
+  - cd psy-reg && python setup.py install && cd ../
+  # prepare the recipes
+  - python recipe_from_setup.py psyplot recipes
+  - python recipe_from_setup.py psyplot-gui recipes
+  - python recipe_from_setup.py psy-simple recipes
+  - python recipe_from_setup.py psy-maps recipes
+  - python recipe_from_setup.py psy-reg recipes
+  # update psy-simple and psy-maps reference figures submodules
+  - cd psy-simple && git submodule update --init tests/reference_figures/win32/py%PYTHON_VERSION%/mpl2.0 && cd ..
+  - cd psy-maps && git submodule update --init tests/reference_figures/win32/py%PYTHON_VERSION%/mpl2.0 && cd ..
+  # print debugging informations
+  - conda env export -n root
+  # print versions of all the important requirements
+  - psyplot -aV
+
+build: false
+
+test_script:
+  # build the receipts and prepare the constructor files
+  - python prepare_constructor_files.py recipes/* $ARGS
+  # construct the executable
+  - constructor psyplot-conda
+  # execute the executable
+  - bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
+  # export the new path and remove current miniconda installation
+  - export PATH="$HOME/miniconda/bin:$ORIG_PATH" && hash -r
+  # install pytest
+  - pip install pytest
+  # run tests for psyplot
+  - py.test -v psyplot
+  # run tests for psyplot-gui
+  - py.test -v psyplot-gui
+  # run (some) tests for psy-simple
+  - py.test -v psy-simple -k "LinePlotterTest2D or Simple2DPlotterTest2D"
+  # run (some) tests for psy-maps
+  - py.test -v psy-maps -k "FieldPlotterTest or IconFieldPlotterTest"
+  # run tests for psy-reg
+  - py.test -v psy-reg
+
+after_test:
+  - coverage report
