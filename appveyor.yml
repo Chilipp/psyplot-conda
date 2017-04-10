@@ -8,6 +8,8 @@ environment:
     - PYTHON_VERSION: "3.6"
 os: unstable
 install:
+  # checkout submodules (but not recursively)
+  - git submodule update --init
   # Install miniconda Python
   - "powershell ./ci/install_python.ps1"
    # Prepend newly installed Python to the PATH of this build (this cannot be
