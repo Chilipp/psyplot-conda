@@ -58,7 +58,7 @@ build: false
 
 test_script:
   # build the receipts and prepare the constructor files
-  - python prepare_constructor_files.py recipes/* -f environment_win.yml "%ARGS%"
+  - python prepare_constructor_files.py recipes/* -f environment_win.yml %ARGS%
   # construct the executable
   - constructor psyplot-conda
   # execute the executable
