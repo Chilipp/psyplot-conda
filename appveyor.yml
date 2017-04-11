@@ -45,9 +45,9 @@ install:
   - cd psy-simple && git submodule update --init tests/reference_figures/win32/py%PYTHON_VERSION%/mpl2.0 && cd ..
   - cd psy-maps && git submodule update --init tests/reference_figures/win32/py%PYTHON_VERSION%/mpl2.0 && cd ..
   - IF "%APPVEYOR_REPO_TAG_NAME%"=="" (
-        ARGS=""
+        set ARGS=""
     ) ELSE (
-        ARGS="-v %APPVEYOR_REPO_TAG_NAME%"
+        set ARGS="-v %APPVEYOR_REPO_TAG_NAME%"
     )
   # print debugging informations
   - conda env export -n root
