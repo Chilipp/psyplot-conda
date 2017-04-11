@@ -48,7 +48,7 @@ install:
   - conda env export -n root
   # print versions of all the important requirements
   - psyplot -aV
-  - ECHO %PLATFORM%
+  - ps: 'Write-Host $env:PLATFORM'
 
 build: false
 
