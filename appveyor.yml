@@ -44,11 +44,6 @@ install:
   # update psy-simple and psy-maps reference figures submodules
   - cd psy-simple && git submodule update --init tests/reference_figures/win32/py%PYTHON_VERSION%/mpl2.0 && cd ..
   - cd psy-maps && git submodule update --init tests/reference_figures/win32/py%PYTHON_VERSION%/mpl2.0 && cd ..
-  - IF "%APPVEYOR_REPO_TAG_NAME%"=="" (
-        set ARGS=""
-    ) ELSE (
-        set ARGS="-v %APPVEYOR_REPO_TAG_NAME%"
-    )
   # print debugging informations
   - conda env export -n root
   # print versions of all the important requirements
@@ -58,7 +53,11 @@ build: false
 
 test_script:
   # build the receipts and prepare the constructor files
-  - python prepare_constructor_files.py recipes/* -f environment_win.yml %ARGS%
+  - IF "%APPVEYOR_REPO_TAG_NAME%"=="" (
+        python prepare_constructor_files.py recipes/* -f environment_win.yml
+    ) ELSE (
+        python prepare_constructor_files.py recipes/* -f environment_win.yml -v %APPVEYOR_REPO_TAG_NAME%
+    )
   # construct the executable
   - constructor psyplot-conda
   # execute the executable
