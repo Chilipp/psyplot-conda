@@ -5,11 +5,9 @@ environment:
 
   matrix:
     - PYTHON_VERSION: "3.6"
-      platform: x86
-      PYTHON_ARCH: "64"
-    - PYTHON_VERSION: "3.6"
-      platform: x64
       PYTHON_ARCH: "32" 
+    - PYTHON_VERSION: "3.6"
+      PYTHON_ARCH: "64"
 os: unstable
 install:
   # checkout submodules (but not recursively)
