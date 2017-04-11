@@ -63,7 +63,7 @@ test_script:
     )
   # construct the executable
   - constructor psyplot-conda
-  - ps: "Remove-Item -Recurse -Force C:\\Python36-conda64"
+  - ps: "Remove-Item -Recurse -Force C:\\Python36-conda"
   # execute the executable
   - "powershell ./ci/install_psyplot.ps1"
 #  - 'FOR /f "tokens=*" %%G IN ("dir /b psyplot-conda-*.exe") DO %%G -p %PSYPLOT_PYTHON% -b'
