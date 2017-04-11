@@ -1,11 +1,15 @@
 environment:
 
-  PYTHON_ARCH: "64"
-  PYTHON: "C:\\Python36-conda64"
+  PYTHON: "C:\\Python36-conda"
   PSYPLOT_PYTHON: "C:\\psyplot-conda-installation"
 
   matrix:
     - PYTHON_VERSION: "3.6"
+      platform: x86
+      PYTHON_ARCH: "64"
+    - PYTHON_VERSION: "3.6"
+      platform: x64
+      PYTHON_ARCH: "32" 
 os: unstable
 install:
   # checkout submodules (but not recursively)
