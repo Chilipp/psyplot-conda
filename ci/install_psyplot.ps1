@@ -3,8 +3,8 @@
 
 function InstallPsyplot ($architecture, $python_home) {
     Write-Host "Installing psyplot-conda for" $architecture "bit architecture to" $python_home
-    if (Test-Path $psyplot_home) {
-        Write-Host $psyplot_home "already exists, skipping."
+    if (Test-Path $python_home) {
+        Write-Host $python_home "already exists, skipping."
         return $false
     }
     if ($architecture -match "32") {
