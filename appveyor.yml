@@ -48,6 +48,7 @@ install:
   - conda env export -n root
   # print versions of all the important requirements
   - psyplot -aV
+  - ECHO %PLATFORM%
 
 build: false
 
@@ -79,6 +80,3 @@ test_script:
   - py.test -v psy-maps -k "FieldPlotterTest or IconFieldPlotterTest"
   # run tests for psy-reg
   - py.test -v psy-reg
-
-after_test:
-  - coverage report
