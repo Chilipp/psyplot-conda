@@ -11,3 +11,7 @@
 [submodule "psy-reg"]
 	path = psy-reg
 	url = https://github.com/Chilipp/psy-reg.git
+[submodule "psyplot"]
+	path = psyplot
+	url = https://github.com/Chilipp/psyplot
+	branch = dev
