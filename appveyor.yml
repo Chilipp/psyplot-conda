@@ -63,7 +63,8 @@ test_script:
   - ps: "Remove-Item -Recurse -Force C:\\Python36-conda64"
   # execute the executable
 #  - 'FOR /f "tokens=*" %%G IN ("dir /b psyplot-conda-*.exe") DO %%G -p %PSYPLOT_PYTHON% -b'
-  - psyplot-conda-0.01-Windows-x86_64.exe -p %PSYPLOT_PYTHON% -b
+  - ps: 'Start-Process -FilePath $pwd.Path + "\" + "psyplot-conda-0.01-Windows-x86_64.exe" -ArgumentList /S /D=$psyplot_python -Wait -Passthru'
+#  - psyplot-conda-0.01-Windows-x86_64.exe -p %PSYPLOT_PYTHON% -b
   # export the new path and remove current miniconda installation
   - "SET PATH=%PSYPLOT_PYTHON%;%PSYPLOT_PYTHON%\\Scripts;%ORIGPATH%"
   # install pytest
