@@ -32,10 +32,6 @@ install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-  # install pyqt4 on linux, not pyqt5 (has problems with QtWebKitEngineWidgets)
-  - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-        sed -i 's/pyqt/pyqt=4/' environment.yml;
-    fi
   - if [[ $TRAVIS_TAG == "" ]]; then
         ARGS="";
     else
