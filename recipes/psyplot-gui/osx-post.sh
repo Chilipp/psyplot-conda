@@ -16,6 +16,17 @@ PREFIXES_FILE=$HOME/.config/psyplot/psyplot-bins.txt
 cp -r $PREFIX/psyplotapp $PREFIX/Psyplot.app
 rm -rf $PREFIX/psyplotapp
 
+# Don't overwrite existing directories with the link directories
+if [[ -e  /Applications/Psyplot.app ]]; then
+    if [[ ! -h /Applications/Psyplot.app ]]; then
+        exit 0
+    fi
+elif [[ -e $HOME/Applications/Psyplot.app ]];
+    if [[ ! -h $HOME/Applications/Psyplot.app ]]; then
+        exit 0
+    fi
+fi
+# otherwise create a link
 ln -s -f $PREFIX/Psyplot.app /Applications/ >/dev/null 2>&1
 if (( $? )); then
     mkdir -p $HOME/Applications
