@@ -27,3 +27,4 @@ dependencies:
     - dask
     - netcdf4
     - bottleneck
+    - pillow=4.0
