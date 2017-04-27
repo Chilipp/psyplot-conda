@@ -21,7 +21,7 @@ if [[ -e  /Applications/Psyplot.app ]]; then
     if [[ ! -h /Applications/Psyplot.app ]]; then
         exit 0
     fi
-elif [[ -e $HOME/Applications/Psyplot.app ]];
+elif [[ -e $HOME/Applications/Psyplot.app ]]; then
     if [[ ! -h $HOME/Applications/Psyplot.app ]]; then
         exit 0
     fi
