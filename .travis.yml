@@ -48,7 +48,7 @@ install:
   - cd psy-reg && python setup.py install && cd ../
   # prepare the recipes
   - python recipe_from_setup.py psyplot recipes
-  - python recipe_from_setup.py psyplot-gui recipes
+  - python recipe_from_setup.py psyplot-gui psyplot-gui/ci/conda_recipe
   - python recipe_from_setup.py psy-simple recipes
   - python recipe_from_setup.py psy-maps recipes
   - python recipe_from_setup.py psy-reg recipes
@@ -64,7 +64,7 @@ install:
   # update psy-simple and psy-maps reference figures submodules
   - cd psy-simple && git submodule update --init `python tests/get_ref_dir.py` && cd ..
   - cd psy-maps && git submodule update --init `python tests/get_ref_dir.py` && cd ..
-  # print debugging informations  
+  # print debugging informations
   - conda env export -n root
   # print versions of all the important requirements
   - psyplot -aV
@@ -78,7 +78,7 @@ before_script:
 
 script:
   # build the receipts and prepare the constructor files
-  - python prepare_constructor_files.py recipes/* $ARGS
+  - python prepare_constructor_files.py recipes/* psyplot-gui/ci/conda_recipe $ARGS
   # construct the executable
   - constructor psyplot-conda
   # execute the executable
