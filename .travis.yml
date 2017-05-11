@@ -81,7 +81,7 @@ before_script:
 
 script:
   # build the receipts and prepare the constructor files
-  - python prepare_constructor_files.py recipes/* psyplot-gui/ci/conda_recipe $ARGS
+  - python prepare_constructor_files.py recipes/* psyplot-gui/ci/conda_recipe/psyplot-gui $ARGS
   # construct the executable
   - constructor psyplot-conda
   # execute the executable
