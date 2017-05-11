@@ -1,16 +1,19 @@
 [submodule "psyplot-gui"]
 	path = psyplot-gui
 	url = https://github.com/Chilipp/psyplot-gui.git
-	branch = v1.0.0.dev0
+	branch = dev
 [submodule "psy-simple"]
 	path = psy-simple
 	url = https://github.com/Chilipp/psy-simple.git
+    branch = dev
 [submodule "psy-maps"]
 	path = psy-maps
 	url = https://github.com/Chilipp/psy-maps.git
+    branch = dev
 [submodule "psy-reg"]
 	path = psy-reg
 	url = https://github.com/Chilipp/psy-reg.git
+    branch = dev
 [submodule "psyplot"]
 	path = psyplot
 	url = https://github.com/Chilipp/psyplot
