@@ -5,7 +5,7 @@ environment:
 
   matrix:
     - PYTHON_VERSION: "3.6"
-      PYTHON_ARCH: "32" 
+      PYTHON_ARCH: "32"
     - PYTHON_VERSION: "3.6"
       PYTHON_ARCH: "64"
 os: unstable
@@ -39,7 +39,7 @@ install:
   - cd psy-reg && python setup.py install && cd ../
   # prepare the recipes
   - python recipe_from_setup.py psyplot recipes
-  - python recipe_from_setup.py psyplot-gui recipes
+  - python recipe_from_setup.py psyplot-gui psyplot-gui/ci/conda_recipe
   - python recipe_from_setup.py psy-simple recipes
   - python recipe_from_setup.py psy-maps recipes
   - python recipe_from_setup.py psy-reg recipes
@@ -57,9 +57,9 @@ build: false
 test_script:
   # build the receipts and prepare the constructor files
   - IF "%APPVEYOR_REPO_TAG_NAME%"=="" (
-        python prepare_constructor_files.py recipes/* -f environment_win.yml
+        python prepare_constructor_files.py recipes/* psyplot-gui/ci/conda_recipe/psyplot-gui -f environment_win.yml
     ) ELSE (
-        python prepare_constructor_files.py recipes/* -f environment_win.yml -v %APPVEYOR_REPO_TAG_NAME%
+        python prepare_constructor_files.py recipes/* psyplot-gui/ci/conda_recipe/psyplot-gui -f environment_win.yml -v %APPVEYOR_REPO_TAG_NAME%
     )
   # construct the executable
   - constructor psyplot-conda
