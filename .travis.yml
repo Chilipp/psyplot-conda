@@ -94,19 +94,19 @@ script:
   # run (some) tests for psy-simple
   - py.test -v psy-simple -k "LinePlotterTest2D or Simple2DPlotterTest2D"
   # run (some) tests for psy-maps
-  - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
+  - py.test -v psy-maps -k "FieldPlotterTest or IconFieldPlotterTest"
   # run tests for psy-reg
   - py.test -v psy-reg
 
 before_deploy:
   - export FINAL_FILE=$(ls psyplot-conda-*.sh)
+  - secure: "viT42Eq7SH45EhhGO28LBdRyPTaBLhhS4sN7Y6gPOy4MwDgS/f+A5Q4dbSaCiSfDeDt8nLQ9T+k2bkLqChAaR6nkaeZ/pJWXI2lkA7gha4fDk+oNG2lJ71O4sKrxJrUrUYAxmfAvWzktdFnjb1Ifg+Zrz8/k0hR7T9/cXFHBXQeBQbaE2ZEbLLMw7mHIGjeUIaJ4gScCELCP3TrCAJzzTOWontEkz5kmXbUeLJ4jnSukhPcM5sQpnPOusqPei+FRpcdp+Y/jBsClr911B2GJC2MD3dFo3LyLoC1bNjNwWs63FmmfTsaECd9ZoeQrRmd5qgWwRBTMoNa5eV/di72K9sV69SXtbo/Y/qxnvfDvmEhlrfB1PqEvD6P9HwXwSZmyHdmj9qHgZtBhdYdqm2WsYFTUwEuduGmEAReTCXVlzT1P02ih8k9i5NAo/bFW//0v2JDTsOQ0iCopEvGQUVJchw04eL0s9PkrlUAjv5RxrZRRJnNZevLdnKJYIc97iuUTJYtKPoFzA+rxsa6uyt8b/2X08UUY1sfX1rv1/nmE4tcIfM3bRvQFWZ5s4altROzq8sFOjNM4mXFRWvjo70+Zbe3ogvO3A8FMEb11g+7RadqW1EmWfoZsb5RO8VH0zxX+xyEmBKzu6eKEijiMHKWxUqAtcBBPOM51BRrgnk/I4FU="
+  - export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW
 
 deploy:
   - provider: script
     script: ci/deploy_nightly.sh "philipp.sommer@unil.ch:$SWITCH_DRIVE_PW" "$FINAL_FILE"
     skip_cleanup: true
-    env:
-      - secure: "viT42Eq7SH45EhhGO28LBdRyPTaBLhhS4sN7Y6gPOy4MwDgS/f+A5Q4dbSaCiSfDeDt8nLQ9T+k2bkLqChAaR6nkaeZ/pJWXI2lkA7gha4fDk+oNG2lJ71O4sKrxJrUrUYAxmfAvWzktdFnjb1Ifg+Zrz8/k0hR7T9/cXFHBXQeBQbaE2ZEbLLMw7mHIGjeUIaJ4gScCELCP3TrCAJzzTOWontEkz5kmXbUeLJ4jnSukhPcM5sQpnPOusqPei+FRpcdp+Y/jBsClr911B2GJC2MD3dFo3LyLoC1bNjNwWs63FmmfTsaECd9ZoeQrRmd5qgWwRBTMoNa5eV/di72K9sV69SXtbo/Y/qxnvfDvmEhlrfB1PqEvD6P9HwXwSZmyHdmj9qHgZtBhdYdqm2WsYFTUwEuduGmEAReTCXVlzT1P02ih8k9i5NAo/bFW//0v2JDTsOQ0iCopEvGQUVJchw04eL0s9PkrlUAjv5RxrZRRJnNZevLdnKJYIc97iuUTJYtKPoFzA+rxsa6uyt8b/2X08UUY1sfX1rv1/nmE4tcIfM3bRvQFWZ5s4altROzq8sFOjNM4mXFRWvjo70+Zbe3ogvO3A8FMEb11g+7RadqW1EmWfoZsb5RO8VH0zxX+xyEmBKzu6eKEijiMHKWxUqAtcBBPOM51BRrgnk/I4FU="
     on:
       all_branches: true
       # do not deploy releases
