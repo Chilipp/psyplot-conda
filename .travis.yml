@@ -15,6 +15,10 @@ before_install:
 git:
     submodules: false
 install:
+  # unset the global SWITCH_DRIVE_PW variable because it is not needed during
+  # the installation process. This decreases the vulnerability
+  - SWITCH_DRIVE_PW_SAVE=$SWITCH_DRIVE_PW
+  - unset SWITCH_DRIVE_PW
   # checkout submodules (but not recursively)
   - git submodule update --init
   # select the os name for the conda installer
@@ -71,6 +75,8 @@ install:
   - conda env export -n root
   # print versions of all the important requirements
   - psyplot -aV
+  # export the pw to make it available for the deploy
+  - export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE
 
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
