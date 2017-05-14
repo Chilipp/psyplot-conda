@@ -14,7 +14,8 @@ function InstallPsyplot ($architecture, $python_home) {
     }
     $basedir = $pwd.Path + "\"
     $filename = "psyplot-conda-*-Windows-" + $platform_suffix + ".exe"
-    $filepath = Resolve-Path $basedir + $filename
+    $filepath = $basedir + $filename
+    $filepath = Resolve-Path $filepath
     Write-Host "Installing" $filepath "to" $python_home
     $install_log = $python_home + ".log"
     $args = "/S /D=$python_home"
