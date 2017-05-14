@@ -2,6 +2,8 @@ environment:
 
   PYTHON: "C:\\Python36-conda"
   PSYPLOT_PYTHON: "C:\\psyplot-conda-installation"
+  SWITCH_DRIVE_PW:
+    secure: 911iH61nwcxi0lcWVy4zEA==
 
   matrix:
     - PYTHON_VERSION: "3.6"
@@ -10,6 +12,10 @@ environment:
       PYTHON_ARCH: "64"
 os: unstable
 install:
+  # save local state and delete the GH_REPO_TOKEN because it is not needed
+  # during the installation and therefore increases security
+  - setlocal
+  - set SWITCH_DRIVE_PW=
   # checkout submodules (but not recursively)
   - git submodule update --init
   # Install miniconda Python
@@ -50,7 +56,7 @@ install:
   - conda env export -n root
   # print versions of all the important requirements
   - psyplot -aV
-  - ps: 'Write-Host $env:PLATFORM'
+  - endlocal
 
 build: false
 
@@ -66,8 +72,6 @@ test_script:
   - ps: "Remove-Item -Recurse -Force C:\\Python36-conda"
   # execute the executable
   - "powershell ./ci/install_psyplot.ps1"
-#  - 'FOR /f "tokens=*" %%G IN ("dir /b psyplot-conda-*.exe") DO %%G -p %PSYPLOT_PYTHON% -b'
-#  - psyplot-conda-0.01-Windows-x86_64.exe -p %PSYPLOT_PYTHON% -b
   # export the new path and remove current miniconda installation
   - "SET PATH=%PSYPLOT_PYTHON%;%PSYPLOT_PYTHON%\\Scripts;%ORIGPATH%"
   # install pytest
@@ -82,3 +86,12 @@ test_script:
   - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
   # run tests for psy-reg
   - py.test -v psy-reg
+
+
+after_test:
+  # deploy installers
+  - IF "%APPVEYOR_REPO_TAG_NAME%"=="" (
+        net use Z: https://drive.switch.ch/remote.php/webdav/ /user:philipp.sommer@unil.ch %SWITCH_DRIVE_PW% &&
+        xcopy psyplot-conda-*-Windows-*.exe Z:\psyplot-conda\%APPVEYOR_REPO_BRANCH%\ &&
+        net use Z: /delete
+    )
