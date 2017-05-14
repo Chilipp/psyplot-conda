@@ -75,21 +75,19 @@ test_script:
   # export the new path and remove current miniconda installation
   - "SET PATH=%PSYPLOT_PYTHON%;%PSYPLOT_PYTHON%\\Scripts;%ORIGPATH%"
   # install pytest
-  - pip install pytest
-  # run tests for psyplot
-  - py.test -v psyplot
-  # run tests for psyplot-gui
-  - py.test -v psyplot-gui
-  # run (some) tests for psy-simple
-  - py.test -v psy-simple -k "LinePlotterTest2D or Simple2DPlotterTest2D"
-  # run (some) tests for psy-maps
-  - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
-  # run tests for psy-reg
-  - py.test -v psy-reg
+#  - pip install pytest
+#  # run tests for psyplot
+#  - py.test -v psyplot
+#  # run tests for psyplot-gui
+#  - py.test -v psyplot-gui
+#  # run (some) tests for psy-simple
+#  - py.test -v psy-simple -k "LinePlotterTest2D or Simple2DPlotterTest2D"
+#  # run (some) tests for psy-maps
+#  - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
+#  # run tests for psy-reg
+#  - py.test -v psy-reg
 
 
 after_test:
   # deploy installers
-  - net use Z: https://drive.switch.ch/remote.php/webdav/ /user:philipp.sommer@unil.ch %SWITCH_DRIVE_PW%
-  - xcopy psyplot-conda-*-Windows-*.exe Z:\psyplot-conda\%APPVEYOR_REPO_BRANCH%\
-  - net use Z: /delete
+  - curl -X PUT -u philipp.sommer@unil.ch:%SWITCH_DRIVE_PW% "https://drive.switch.ch/remote.php/webdav/psyplot-conda/$TRAVIS_BRANCH/$2" --data-binary psyplot-conda-*-Windows-*.exe
