@@ -90,4 +90,4 @@ test_script:
 
 after_test:
   # deploy installers
-  - curl -X PUT -u philipp.sommer@unil.ch:%SWITCH_DRIVE_PW% "https://drive.switch.ch/remote.php/webdav/psyplot-conda/$TRAVIS_BRANCH/$2" --data-binary psyplot-conda-*-Windows-*.exe
+  - curl -X PUT -u philipp.sommer@unil.ch:%SWITCH_DRIVE_PW% https://drive.switch.ch/remote.php/webdav/psyplot-conda/%APPVEYOR_REPO_BRANCH%/ --data-binary psyplot-conda-*-Windows-*.exe
