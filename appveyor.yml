@@ -90,8 +90,9 @@ test_script:
 
 after_test:
   # deploy installers
-  - IF "%APPVEYOR_REPO_TAG_NAME%"=="" (
-        net use Z: https://drive.switch.ch/remote.php/webdav/ /user:philipp.sommer@unil.ch %SWITCH_DRIVE_PW% &&
-        xcopy psyplot-conda-*-Windows-*.exe Z:\psyplot-conda\%APPVEYOR_REPO_BRANCH%\ &&
+  - |
+    IF "%APPVEYOR_REPO_TAG_NAME%"=="" (
+        net use Z: https://drive.switch.ch/remote.php/webdav/ /user:philipp.sommer@unil.ch %SWITCH_DRIVE_PW% &
+        xcopy psyplot-conda-*-Windows-*.exe Z:\psyplot-conda\%APPVEYOR_REPO_BRANCH%\ &
         net use Z: /delete
     )
