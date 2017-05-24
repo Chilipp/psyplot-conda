@@ -108,9 +108,7 @@ script:
   - py.test -v psy-reg
 
 before_deploy:
-    - ORIG_FILE=$(ls psyplot-conda-*.sh)
-    - export FINAL_FILE="${ORIG_FILE%.sh}_${PYTHON_VERSION}.sh"
-    - mv "$ORIG_FILE" "$FINAL_FILE"
+    - export FINAL_FILE=$(ls psyplot-conda-*-"${OS_NAME}"-*.sh)
 
 deploy:
   - provider: script
