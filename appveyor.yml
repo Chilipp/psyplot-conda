@@ -90,4 +90,6 @@ test_script:
 
 after_test:
   # deploy installers
-  - curl -X PUT -u philipp.sommer@unil.ch:%SWITCH_DRIVE_PW% https://drive.switch.ch/remote.php/webdav/psyplot-conda/%APPVEYOR_REPO_BRANCH%/ --data-binary psyplot-conda-*-Windows-*.exe
+  - IF "%APPVEYOR_REPO_TAG_NAME%"=="" (
+        powershell ./ci/deploy_nightly.ps1
+    )
