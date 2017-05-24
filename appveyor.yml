@@ -86,10 +86,3 @@ test_script:
 #  - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
 #  # run tests for psy-reg
 #  - py.test -v psy-reg
-
-
-after_test:
-  # deploy installers
-  - IF "%APPVEYOR_REPO_TAG_NAME%"=="" (
-        powershell ./ci/deploy_nightly.ps1
-    )
