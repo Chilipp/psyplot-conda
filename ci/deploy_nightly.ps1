@@ -11,10 +11,12 @@ function DeployPsyplot ($architecture) {
     $basedir = $pwd.Path + "\"
     $filepath = "psyplot-conda-*-Windows-" + $platform_suffix + ".exe"
     $filepath = Resolve-Path $filepath
-    $target = "https://drive.switch.ch/remote.php/webdav/psyplot-conda/" + $env:APPVEYOR_REPO_BRANCH + "/" + $filepath
+    $filename = (Get-Item $filepath).Basename
+    $target = "https://drive.switch.ch/remote.php/webdav/psyplot-conda/" + $env:APPVEYOR_REPO_BRANCH + "/" + $filename
     $user = "philipp.sommer@unil.ch:" + $env:SWITCH_DRIVE_PW
     Write-Host "Deploying" $filepath "to" $target
-    curl -X PUT -u $user $target --data-binary $filepath
+    $cmd = "curl -X PUT -u " + $user + " " + $target + " --data-binary " + $filepath
+    iex $cmd
 }
 
 
