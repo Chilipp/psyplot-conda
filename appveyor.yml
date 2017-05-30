@@ -2,8 +2,6 @@ environment:
 
   PYTHON: "C:\\Python36-conda"
   PSYPLOT_PYTHON: "C:\\psyplot-conda-installation"
-  SWITCH_DRIVE_PW:
-    secure: 911iH61nwcxi0lcWVy4zEA==
 
   matrix:
     - PYTHON_VERSION: "3.6"
@@ -12,10 +10,6 @@ environment:
       PYTHON_ARCH: "64"
 os: unstable
 install:
-  # save local state and delete the GH_REPO_TOKEN because it is not needed
-  # during the installation and therefore increases security
-  - setlocal
-  - set SWITCH_DRIVE_PW=
   # checkout submodules (but not recursively)
   - git submodule update --init
   # Install miniconda Python
@@ -56,7 +50,6 @@ install:
   - conda env export -n root
   # print versions of all the important requirements
   - psyplot -aV
-  - endlocal
 
 build: false
 
@@ -75,14 +68,14 @@ test_script:
   # export the new path and remove current miniconda installation
   - "SET PATH=%PSYPLOT_PYTHON%;%PSYPLOT_PYTHON%\\Scripts;%ORIGPATH%"
   # install pytest
-#  - pip install pytest
-#  # run tests for psyplot
-#  - py.test -v psyplot
-#  # run tests for psyplot-gui
-#  - py.test -v psyplot-gui
-#  # run (some) tests for psy-simple
-#  - py.test -v psy-simple -k "LinePlotterTest2D or Simple2DPlotterTest2D"
-#  # run (some) tests for psy-maps
-#  - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
-#  # run tests for psy-reg
-#  - py.test -v psy-reg
+  - pip install pytest
+  # run tests for psyplot
+  - py.test -v psyplot
+  # run tests for psyplot-gui
+  - py.test -v psyplot-gui
+  # run (some) tests for psy-simple
+  - py.test -v psy-simple -k "LinePlotterTest2D or Simple2DPlotterTest2D"
+  # run (some) tests for psy-maps
+  - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
+  # run tests for psy-reg
+  - py.test -v psy-reg
