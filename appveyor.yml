@@ -79,3 +79,15 @@ test_script:
   - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
   # run tests for psy-reg
   - py.test -v psy-reg
+
+deploy:
+  description: ' '
+  provider: GitHub
+  auth_token:
+    secure: VxQCHxFVEha6Rr/BuEU58kSYK3K16ENzLzIgqJIOyVHGWDuf1Tszqpmz2zkEX4Wn
+  artifact: psyplot-conda-*.exe
+  draft: true
+  prerelease: true
+  on:
+    branch: master                 # release from master branch only
+    appveyor_repo_tag: true        # deploy on tag push only
