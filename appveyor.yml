@@ -29,8 +29,9 @@ install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-  - conda env update -n root -f environment_win.yml
+  - conda env create -f environment_win.yml
   - conda install constructor conda-build
+  - activate psyplot_conda
   # install the submodules
   - cd psyplot && python setup.py install && cd ../
   - cd psyplot-gui && python setup.py install && cd ../
@@ -47,7 +48,7 @@ install:
   - cd psy-simple && git submodule update --init tests/reference_figures/win32/py%PYTHON_VERSION%/mpl2.0 && cd ..
   - cd psy-maps && git submodule update --init tests/reference_figures/win32/py%PYTHON_VERSION%/mpl2.0 && cd ..
   # print debugging informations
-  - conda env export -n root
+  - conda env export -n psyplot_conda
   # print versions of all the important requirements
   - psyplot -aV
 
