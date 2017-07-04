@@ -61,13 +61,12 @@ def get_all_versions(name=None):
                                      all_versions_str.split())}
 
 
-all_versions = get_all_versions('root')
-all_versions.update(get_all_versions(args.name))
+all_versions = get_all_versions(args.name)
 
 
-def get_version(mod):
+def get_version(mod, d=all_versions):
     try:
-        return ' '.join(all_versions[mod])
+        return ' '.join(d[mod])
     except KeyError:
         return pkg_resources.get_distribution(mod).version
 
@@ -113,7 +112,8 @@ replacements['VERSIONS'] = '\n'.join(
                                   sorted(local_versions.items()),
                                   sorted(other_versions.items())))
 
-replacements['CONSTRUCTOR'] = get_version('constructor')
+replacements['CONSTRUCTOR'] = get_version('constructor',
+                                          get_all_versions('root'))
 
 replacements['TIME'] = dt.datetime.now()
 
@@ -130,8 +130,9 @@ with open(osp.join(build_dir, 'construct.yaml')) as f:
 if version:
     construct['version'] = version
 
+# use all installed packages in the given environment
 construct['specs'] = ['python %s*' % py_version, 'conda', 'pip'] + [
-    '%s %s' % t for t in other_versions.items()]
+    '%s %s' % (name, ' '.join(v)) for name, v in all_versions.items()]
 
 # for packages in the psyplot framework, we use our own local builds
 builds = []
