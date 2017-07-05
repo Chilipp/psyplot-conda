@@ -70,7 +70,7 @@ test_script:
   # execute the executable
   - "powershell ./ci/install_psyplot.ps1"
   # run post_win.bat because for some reason that does not work on appveyor
-  - set PREFIX=%PSYPLOT_PYTHON% && psyplot-conda/post_win.bat
+  - set PREFIX=%PSYPLOT_PYTHON% && psyplot-conda\post_win.bat
   # export the new path and remove current miniconda installation
   - "SET PATH=%PSYPLOT_PYTHON%;%PSYPLOT_PYTHON%\\Scripts;%ORIGPATH%"
   # install pytest
