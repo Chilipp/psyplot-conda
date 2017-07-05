@@ -28,4 +28,3 @@ dependencies:
     - dask
     - netcdf4
     - bottleneck
-    - openblas
