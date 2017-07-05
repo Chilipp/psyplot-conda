@@ -62,10 +62,10 @@ test_script:
         python prepare_constructor_files.py recipes/* psyplot-gui/ci/conda_recipe/psyplot-gui -f environment_win.yml -n psyplot_conda -v %APPVEYOR_REPO_TAG_NAME%
     )
   - cat psyplot-conda/construct.yaml
+  - deactivate
   # construct the executable
   - constructor psyplot-conda
   # deactivate conda environment and delete the old files
-  - deactivate
   - ps: "Remove-Item -Recurse -Force C:\\Python36-conda"
   # execute the executable
   - "powershell ./ci/install_psyplot.ps1"
