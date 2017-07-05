@@ -72,6 +72,8 @@ test_script:
   - "SET PATH=%PSYPLOT_PYTHON%;%PSYPLOT_PYTHON%\\Scripts;%ORIGPATH%"
   # install pytest
   - pip install pytest
+  # try to import some libraries for test
+  - python -c "import psyplot; import netCDF4"
   # run tests for psyplot
   - py.test -v psyplot
   # run tests for psyplot-gui
