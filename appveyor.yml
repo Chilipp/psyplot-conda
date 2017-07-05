@@ -73,7 +73,8 @@ test_script:
   - set PREFIX=%PSYPLOT_PYTHON% && psyplot-conda\post_win.bat
   # export the new path and remove current miniconda installation
   - "SET PATH=%PSYPLOT_PYTHON%;%PSYPLOT_PYTHON%\\Scripts;%ORIGPATH%"
-  - conda list
+  - where python
+  - conda list -n root
   # install pytest
   - pip install pytest
   # try to import some libraries for test
