@@ -68,23 +68,23 @@ test_script:
   - deactivate
   - ps: "Remove-Item -Recurse -Force C:\\Python36-conda"
   # execute the executable
-#  - "powershell ./ci/install_psyplot.ps1"
-#  # export the new path and remove current miniconda installation
-#  - "SET PATH=%PSYPLOT_PYTHON%;%PSYPLOT_PYTHON%\\Scripts;%ORIGPATH%"
-#  # install pytest
-#  - pip install pytest
-#  # try to import some libraries for test
-#  - python -c "import psyplot; import netCDF4"
-#  # run tests for psyplot
-#  - py.test -v psyplot
-#  # run tests for psyplot-gui
-#  - py.test -v psyplot-gui
-#  # run (some) tests for psy-simple
-#  - py.test -v psy-simple -k "LinePlotterTest2D or Simple2DPlotterTest2D"
-#  # run (some) tests for psy-maps
-#  - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
-#  # run tests for psy-reg
-#  - py.test -v psy-reg
+  - "powershell ./ci/install_psyplot.ps1"
+  # export the new path and remove current miniconda installation
+  - "SET PATH=%PSYPLOT_PYTHON%;%PSYPLOT_PYTHON%\\Scripts;%ORIGPATH%"
+  # install pytest
+  - pip install pytest
+  # try to import some libraries for test
+  - python -c "import psyplot; import netCDF4"
+  # run tests for psyplot
+  - py.test -v psyplot
+  # run tests for psyplot-gui
+  - py.test -v psyplot-gui
+  # run (some) tests for psy-simple
+  - py.test -v psy-simple -k "LinePlotterTest2D or Simple2DPlotterTest2D"
+  # run (some) tests for psy-maps
+  - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
+  # run tests for psy-reg
+  - py.test -v psy-reg
 artifacts:
   - path: psyplot-conda-1.0.0.dev0-Windows-x86.exe
     name: installer
