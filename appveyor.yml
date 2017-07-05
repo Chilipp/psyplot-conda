@@ -85,14 +85,16 @@ test_script:
 #  - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
 #  # run tests for psy-reg
 #  - py.test -v psy-reg
+artifacts:
+  - path: psyplot-conda-1.0.0.dev0-Windows-x86.exe
+    name: installer
 
 deploy:
   description: ' '
   provider: GitHub
   auth_token:
     secure: VxQCHxFVEha6Rr/BuEU58kSYK3K16ENzLzIgqJIOyVHGWDuf1Tszqpmz2zkEX4Wn
-  artifacts:
-    - path: psyplot-conda-1.0.0.dev0-Windows-x86.exe
+  artifacts: installer
   draft: true
   prerelease: true
   on:
