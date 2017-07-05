@@ -57,12 +57,14 @@ build: false
 test_script:
   # build the receipts and prepare the constructor files
   - IF "%APPVEYOR_REPO_TAG_NAME%"=="" (
-        python prepare_constructor_files.py recipes/* psyplot-gui/ci/conda_recipe/psyplot-gui -f environment_win.yml
+        python prepare_constructor_files.py recipes/* psyplot-gui/ci/conda_recipe/psyplot-gui -f environment_win.yml -n psyplot_conda
     ) ELSE (
-        python prepare_constructor_files.py recipes/* psyplot-gui/ci/conda_recipe/psyplot-gui -f environment_win.yml -v %APPVEYOR_REPO_TAG_NAME%
+        python prepare_constructor_files.py recipes/* psyplot-gui/ci/conda_recipe/psyplot-gui -f environment_win.yml -n psyplot_conda -v %APPVEYOR_REPO_TAG_NAME%
     )
   # construct the executable
   - constructor psyplot-conda
+  # deactivate conda environment and delete the old files
+  - deactivate
   - ps: "Remove-Item -Recurse -Force C:\\Python36-conda"
   # execute the executable
   - "powershell ./ci/install_psyplot.ps1"

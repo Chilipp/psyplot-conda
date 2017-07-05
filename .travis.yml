@@ -88,13 +88,15 @@ before_script:
 
 script:
   # build the receipts and prepare the constructor files
-  - python prepare_constructor_files.py recipes/* psyplot-gui/ci/conda_recipe/psyplot-gui $ARGS
+  - python prepare_constructor_files.py recipes/* psyplot-gui/ci/conda_recipe/psyplot-gui $ARGS -n psyplot_conda
   # construct the executable
   - constructor psyplot-conda
+  # deactivate conda environment and delete miniconda
+  - source deactivate && rm -r $HOME/miniconda
   # execute the executable
   - bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
   # export the new path and remove current miniconda installation
-  - export PATH="$HOME/miniconda/bin:$ORIG_PATH" && hash -r
+  - export PATH="$HOME/psyplot-conda/bin:$ORIG_PATH" && hash -r
   # install pytest
   - pip install pytest
   # run tests for psyplot
