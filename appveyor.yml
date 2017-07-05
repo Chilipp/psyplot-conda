@@ -91,7 +91,7 @@ deploy:
   provider: GitHub
   auth_token:
     secure: VxQCHxFVEha6Rr/BuEU58kSYK3K16ENzLzIgqJIOyVHGWDuf1Tszqpmz2zkEX4Wn
-  artifact: psyplot-conda-/.*\.exe
+  artifact: psyplot-conda-1.0.0.dev0-Windows-x86.exe
   draft: true
   prerelease: true
   on:
