@@ -4,4 +4,3 @@ start "" "%PREFIX%\python.exe" -c "import numpy" || (
     ) || (
     ECHO "Could not install mkl. Run 'conda install -c conda-forge mkl'"
     )
-pause
