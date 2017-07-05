@@ -23,3 +23,5 @@ specs:
 license_file: EULA.txt
 
 welcome_image: logo.png                  [win]
+
+post_install: post_win.bat               [win]
