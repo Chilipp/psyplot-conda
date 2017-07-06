@@ -74,6 +74,7 @@ test_script:
   # export the new path and remove current miniconda installation
   - "SET PATH=%PSYPLOT_PYTHON%;%PSYPLOT_PYTHON%\\Scripts;%ORIGPATH%"
   - where python
+  - where conda
   - conda list -n root
   # install pytest
   - pip install pytest
