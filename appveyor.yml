@@ -51,7 +51,6 @@ install:
   - conda env export -n psyplot_conda
   # print versions of all the important requirements
   - psyplot -aV
-  - set PACKAGES="recipes/psyplot recipes/psy-simple recipes/psy-maps recipes/psy-reg psyplot-gui/ci/conda_recipe/psyplot-gui"
   - conda config --add channels chilipp
   - conda config --add channels conda-forge
 
@@ -60,9 +59,9 @@ build: false
 test_script:
   # build the receipts and prepare the constructor files
   - IF "%APPVEYOR_REPO_TAG_NAME%"=="" (
-        python prepare_constructor_files.py %PACKAGES% -f environment_win.yml -n psyplot_conda
+        python prepare_constructor_files.py recipes/psyplot recipes/psy-simple recipes/psy-maps recipes/psy-reg psyplot-gui/ci/conda_recipe/psyplot-gui -f environment_win.yml -n psyplot_conda
     ) ELSE (
-        python prepare_constructor_files.py %PACKAGES%  -f environment_win.yml -n psyplot_conda -v %APPVEYOR_REPO_TAG_NAME%
+        python prepare_constructor_files.py recipes/psyplot recipes/psy-simple recipes/psy-maps recipes/psy-reg psyplot-gui/ci/conda_recipe/psyplot-gui  -f environment_win.yml -n psyplot_conda -v %APPVEYOR_REPO_TAG_NAME%
     )
   - cat psyplot-conda/construct.yaml
   - deactivate
