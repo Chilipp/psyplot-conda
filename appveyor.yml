@@ -52,7 +52,8 @@ install:
   # print versions of all the important requirements
   - psyplot -aV
   - set PACKAGES=recipes/psyplot recipes/psy-simple recipes/psy-maps recipes/psy-reg psyplot-gui/ci/conda_recipe/psyplot-gui
-  - conda config --add channels chilipp conda-forge
+  - conda config --add channels chilipp
+  - conda config --add channels conda-forge
 
 build: false
 
