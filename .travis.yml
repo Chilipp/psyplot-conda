@@ -69,6 +69,7 @@ install:
   - psyplot -aV
   # export the pw to make it available for the deploy
   - export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE
+  - export PACKAGES=recipes/psyplot recipes/psy-simple recipes/psy-maps recipes/psy-reg psyplot-gui/ci/conda_recipe/psyplot-gui
 
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
@@ -79,11 +80,11 @@ before_script:
 
 script:
   # build the receipts and prepare the constructor files
-  - python prepare_constructor_files.py recipes/* psyplot-gui/ci/conda_recipe/psyplot-gui $ARGS -n psyplot_conda
-  # construct the executable
-  - constructor psyplot-conda
+  - python prepare_constructor_files.py $PACKAGES $ARGS -n psyplot_conda
   # deactivate conda environment and delete miniconda
   - source deactivate && rm -r $HOME/miniconda
+  # construct the executable
+  - constructor psyplot-conda
   # execute the executable
   - bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
   # export the new path and remove current miniconda installation
