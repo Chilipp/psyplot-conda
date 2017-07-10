@@ -70,6 +70,7 @@ install:
   # export the pw to make it available for the deploy
   - export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE
   - export PACKAGES=recipes/psyplot recipes/psy-simple recipes/psy-maps recipes/psy-reg psyplot-gui/ci/conda_recipe/psyplot-gui
+  - conda config --add channels chilipp conda-forge
 
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
