@@ -84,10 +84,12 @@ script:
   # build the receipts and prepare the constructor files
   - python prepare_constructor_files.py $PACKAGES $ARGS -n psyplot_conda
   # deactivate conda environment and delete miniconda
-  - source deactivate && rm -r $HOME/miniconda
+  - source deactivate
+  - cat psyplot-conda/construct.yaml
   # construct the executable
   - constructor psyplot-conda
   # execute the executable
+  - rm -r $HOME/miniconda
   - bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
   # export the new path and remove current miniconda installation
   - export PATH="$HOME/psyplot-conda/bin:$ORIG_PATH" && hash -r
