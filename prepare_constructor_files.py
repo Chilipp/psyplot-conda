@@ -142,7 +142,7 @@ for pkg_path in local_packages:
                        stdout=sys.stdout, stderr=sys.stderr)
     builds.append(file2html(spr.check_output(
         ['conda', 'build', pkg_path, '--output']).decode(
-            'utf-8').strip()))
+            'utf-8').strip().splitlines()[-1]))
 if builds:
     construct['packages'] = builds
 
