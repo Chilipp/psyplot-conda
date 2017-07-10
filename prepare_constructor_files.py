@@ -143,6 +143,10 @@ for pkg_path in local_packages:
     builds.append(file2html(spr.check_output(
         ['conda', 'build', pkg_path, '--output']).decode(
             'utf-8').strip().splitlines()[-1]))
+    print('+' * 80)
+    print(builds)
+    print('-' * 80)
+
 if builds:
     construct['packages'] = builds
 
