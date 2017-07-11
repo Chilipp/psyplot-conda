@@ -4,7 +4,8 @@ Conda installers for psyplot
 This repository is contains the necessary files to create an executable that
 can be used to install conda and psyplot (including GUI).
 
-Executables can be downloaded from the Releases_ page.
+Executables can be downloaded from the Releases_ page, nightly builds for
+Linux and OSX are available here_.
 
 This installer contains all necessary dependencies for psyplot_, psyplot-gui_,
 psy-simple_, psy-maps_ and psy-reg_ plus the conda package for managing
@@ -44,6 +45,7 @@ open a command window (``cmd``) and type ``psyplot``.
 
 
 .. _Releases: https://github.com/Chilipp/psyplot-conda/Releases
+.. _here: https://drive.switch.ch/index.php/s/lVwRVtFncOljb6y
 .. _psyplot: https://psyplot.readthedocs.io
 .. _psyplot-gui: https://psyplot.readthedocs.io/projects/psyplot-gui
 .. _psy-simple: https://psyplot.readthedocs.io/projects/psy-simple
