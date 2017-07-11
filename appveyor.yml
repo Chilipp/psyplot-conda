@@ -71,17 +71,13 @@ test_script:
   - ps: "Remove-Item -Recurse -Force C:\\Python36-conda"
   # execute the executable
   - "powershell ./ci/install_psyplot.ps1"
-  # run post_win.bat because for some reason that does not work on appveyor
-  - set PREFIX=%PSYPLOT_PYTHON% && psyplot-conda\post_win.bat
   # export the new path and remove current miniconda installation
   - "SET PATH=%PSYPLOT_PYTHON%;%PSYPLOT_PYTHON%\\Scripts;%ORIGPATH%"
-  - where python
-  - where conda
-  - conda list -n root
   # install pytest
   - pip install pytest
   # try to import some libraries for test
-  - python -c "import psyplot; import netCDF4"
+  - where psyplot
+  - psyplot -aV
   # run tests for psyplot
   - py.test -v psyplot
   # run tests for psyplot-gui
