@@ -27,6 +27,11 @@ install:
     else
         export OS_NAME=Linux;
     fi
+  # checkout current submodules on nightly branch
+  - if [[ $TRAVIS_BRANCH == nightly ]]; then
+        git submodule foreach 'git checkout dev';
+        ./update_submodules.sh;
+    fi
   # We do this conditionally because it saves us some downloading if the
   # version is the same.
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-"${OS_NAME}"-x86_64.sh -O miniconda.sh;
