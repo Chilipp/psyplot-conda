@@ -1,0 +1,3 @@
+# Conda constructor
+#   https://github.com/conda/constructor/blob/master/CHANGELOG.txt
+constructor==1.5.5 # rq.filter: >=1.5,<1.6
