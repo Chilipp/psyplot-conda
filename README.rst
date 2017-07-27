@@ -1,6 +1,39 @@
 Conda installers for psyplot
 ============================
 
+.. start-badges
+
+.. list-table::
+    :stub-columns: 1
+    :widths: 10 90
+
+    * - tests
+      - |travis| |appveyor| |requires| |coveralls|
+    * - nightly
+      - |nightly|
+
+.. |travis| image:: https://travis-ci.org/Chilipp/psyplot-conda.svg?branch=master
+    :alt: Travis
+    :target: https://travis-ci.org/Chilipp/psyplot-conda
+
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/3jk6ea1n4a4dl6vk/branch/master?svg=true
+    :alt: AppVeyor
+    :target: https://ci.appveyor.com/project/Chilipp/psyplot-conda/branch/master
+
+.. |requires| image:: https://requires.io/github/Chilipp/psyplot-conda/requirements.svg?branch=master
+    :alt: Requirements Status
+    :target: https://requires.io/github/Chilipp/psyplot-conda/requirements/?branch=master
+
+.. |nightly| image:: https://travis-ci.org/Chilipp/psyplot-conda.svg?branch=nightly
+    :alt: nightly on Travis
+    :target: https://travis-ci.org/Chilipp/psyplot-conda
+
+.. |github| image:: https://img.shields.io/github/release/Chilipp/psyplot-conda.svg
+    :alt: Github releases
+    :target: https://github.com/Chilipp/psyplot-conda/releases
+
+.. start-badges
+
 This repository is contains the necessary files to create an executable that
 can be used to install conda and psyplot (including GUI).
 
