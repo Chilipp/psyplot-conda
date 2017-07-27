@@ -8,7 +8,7 @@ Conda installers for psyplot
     :widths: 10 90
 
     * - tests
-      - |travis| |appveyor| |requires| |coveralls|
+      - |travis| |appveyor| |requires|
     * - nightly
       - |nightly|
 
