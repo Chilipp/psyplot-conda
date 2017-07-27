@@ -11,6 +11,8 @@ Conda installers for psyplot
       - |travis| |appveyor| |requires|
     * - nightly
       - |nightly|
+    * - package
+      - |github|
 
 .. |travis| image:: https://travis-ci.org/Chilipp/psyplot-conda.svg?branch=master
     :alt: Travis
