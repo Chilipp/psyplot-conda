@@ -97,7 +97,7 @@ script:
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then bash create_package.sh; fi
   # execute the executable
   - rm -r $HOME/miniconda
-  - bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
+  - NO_PSYPLOT_ALIAS=1 NO_PSYPLOT_APP=1 bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
   # export the new path and remove current miniconda installation
   - export PATH="$HOME/psyplot-conda/bin:$ORIG_PATH" && hash -r
   # install pytest
