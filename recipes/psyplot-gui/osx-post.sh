@@ -17,8 +17,4 @@ source "$PREFIX"/bin/activate "$PREFIX"
 "$PREFIX"/bin/python "$PREFIX"/bin/psyplot $@
 EOF
 
-ln -s -f $PREFIX/Psyplot.app /Applications/ >/dev/null 2>&1
-if (( $? )); then
-    mkdir -p $HOME/Applications
-    ln -s -f $PREFIX/Psyplot.app $HOME/Applications/ || exit 0
-fi
+exit 0
