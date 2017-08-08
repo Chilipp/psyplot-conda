@@ -25,3 +25,5 @@ license_file: EULA.txt
 welcome_image: logo.png                  [win]
 
 post_install: post_win.bat               [win]
+post_install: post_osx.sh                [osx]
+post_install: post_linux.sh              [linux]
