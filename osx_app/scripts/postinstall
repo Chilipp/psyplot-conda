@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+location=$2
+
+NO_PSYPLOT_ALIAS=1 NO_PSYPLOT_APP=1 \
+    bash $DIR/psyplot-conda-install.sh -b -p $location/Psyplot.app/Contents/psyplot-conda
+
+cp $location/Psyplot.app/Contents/psyplot-conda/Psyplot.app/Contents/MacOS/run.sh $location/Psyplot.app/Contents/MacOS/run.sh

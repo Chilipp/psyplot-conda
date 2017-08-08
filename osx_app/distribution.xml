@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<installer-gui-script minSpecVersion="1">
+    <title>Psyplot</title>
+    <organization>org.someid</organization>
+    <domains enable_anywhere="true" enable_currentUserHome="true" enable_localSystem="true" />
+    <options customize="allow" require-scripts="true" hostArchitectures="x86_64" />
+    <!-- Define documents displayed at various steps -->
+    <welcome file="welcome.html" />
+    <license file="license.html" />
+    <conclusion file="conclusion.html" />
+    <!-- List all component packages -->
+    <pkg-ref id="com.psyplot.io"
+        version="0.01"
+             auth="root">Psyplot.pkg</pkg-ref>
+    <!-- List them again here. They can now be organized
+         as a hierarchy if you want. -->
+    <choices-outline>
+        <line choice="com.psyplot.io"/>
+    </choices-outline>
+    <!-- Define each choice above -->
+    <choice
+        id="com.psyplot.io"
+        visible="false"
+        title="Psyplot"
+        description="The daemon"
+        start_selected="true">
+      <pkg-ref id="com.psyplot.io"/>
+    </choice>
+</installer-gui-script>

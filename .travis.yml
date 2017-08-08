@@ -93,6 +93,8 @@ script:
   - cat psyplot-conda/construct.yaml
   # construct the executable
   - constructor psyplot-conda
+  # create the app
+  - if [[ $TRAVIS_OS_NAME == "osx" ]]; then bash create_package.sh; fi
   # execute the executable
   - rm -r $HOME/miniconda
   - bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
