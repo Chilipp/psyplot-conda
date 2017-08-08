@@ -100,7 +100,7 @@ shutil.copytree(src_dir, build_dir)
 
 # ----------------------- End User License Agreement --------------------------
 
-with open(osp.join(build_dir, 'EULA.txt')) as f:
+with open(osp.join(build_dir, 'intro.rst')) as f:
     eula = f.read()
 
 py_version = '.'.join(map(str, sys.version_info[:3]))
@@ -118,6 +118,12 @@ replacements['CONSTRUCTOR'] = get_version('constructor',
 replacements['TIME'] = dt.datetime.now()
 
 eula = eula.format(**replacements)
+
+with open(osp.join(build_dir, 'intro.rst'), 'w') as f:
+    f.write(eula)
+
+with open('LICENSE') as f:
+    eula += '\n\n' + f.read()
 
 with open(osp.join(build_dir, 'EULA.txt'), 'w') as f:
     f.write(eula)
