@@ -52,6 +52,9 @@ install:
   # update conda
   - conda env create -f environment.yml
   - conda install constructor conda-build
+  - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
+        conda install -c conda-forge pandoc;
+    fi
   - source activate psyplot_conda
   # install the submodules
   - cd psyplot && python setup.py install && cd ../
@@ -77,9 +80,6 @@ install:
   - export PACKAGES="recipes/psyplot recipes/psy-simple recipes/psy-maps recipes/psy-reg recipes/psyplot-gui"
   - conda config --add channels chilipp
   - conda config --add channels conda-forge
-  - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
-        conda install -c conda-forge pandoc;
-    fi
 
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
