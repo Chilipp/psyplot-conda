@@ -17,7 +17,7 @@ mv psyplotapp Psyplot.app
 
 # use correct file size
 SIZE=$(`du -ks $HOME/psyplot-conda | cut -f1`+`du -ks Psyplot.app | cut -f1` | bc -l)
-sed -r -i "s/installKBytes=[0-9]+/installKBytest=$SIZE/" distribution.xml
+sed -r -i "s/installKBytes=\"[0-9]+\"/installKBytes=\"$SIZE\"/g" distribution.xml
 
 # convert intro, lices and conclusions to html
 mkdir resources || :
