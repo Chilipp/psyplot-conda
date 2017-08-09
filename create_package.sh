@@ -16,7 +16,7 @@ tar xjvf `conda build ../recipes/psyplot-gui --output | tail -n 1` psyplotapp
 mv psyplotapp Psyplot.app
 
 # use correct file size
-SIZE=$(`du -ks $HOME/psyplot-conda | cut -f1`+`du -ks Psyplot.app | cut -f1` | bc -l)
+SIZE=$(echo `du -ks $HOME/psyplot-conda | cut -f1`+`du -ks Psyplot.app | cut -f1` | bc -l)
 sed -r -i "s/installKBytes=\"[0-9]+\"/installKBytes=\"$SIZE\"/g" distribution.xml
 
 # convert intro, lices and conclusions to html
