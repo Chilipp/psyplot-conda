@@ -1,12 +1,11 @@
 #!/bin/bash
-set -e
+set -xe
 
 cp -r osx-app work
 
 cd work
 
 # insert versions
-sed -i "s/0.01/$PKG_VERSION/" Psyplot.app/psyplotapp/Contents/Info.plist
 sed -i "s/0.01/$PKG_VERSION/" distribution.xml
 chmod +x scripts/postinstall
 
@@ -16,9 +15,9 @@ mv psyplotapp Psyplot.app
 
 # convert intro, lices and conclusions to html
 mkdir resources || :
-pandoc -f markdown ../LICENSE -o resources/license.html
-pandoc psyplot-conda/intro.rst -o resources/welcome.html
-pandoc conclusion.rst -o resources/conclusion.html
+pandoc -s -f markdown ../LICENSE -o resources/license.html
+pandoc -s ../psyplot-conda/intro.rst -o resources/welcome.html
+pandoc -s conclusion.rst -o resources/conclusion.html
 
 cp ../psyplot-conda-*MacOSX-*.sh scripts/psyplot-conda-install.sh
 
