@@ -36,7 +36,7 @@ Conda installers for psyplot
 
 .. start-badges
 
-This repository is contains the necessary files to create an executable that
+This repository contains the necessary files to create an executable that
 can be used to install conda and psyplot (including GUI).
 
 Executables can be downloaded from the Releases_ page, nightly builds for
@@ -48,10 +48,11 @@ virtual environments. These installers have been created using using the
 conda constructor_ package and the packages from the conda-forge_ channel.
 
 
+.. Contents::
 
-Installation on MacOSX and Linux
---------------------------------
-Download the bash script (file ending on ``'.sh'`` for linux or MacOSX) from
+Installation on Linux
+---------------------
+Download the bash script (file ending on ``'.sh'`` for linux) from
 the Releases_ page and open a terminal window.
 
 Type::
@@ -66,9 +67,56 @@ Type::
 
     bash '<Path-to-the-downloaded-file.sh>' --help
 
-On MaxOSX, the installation will create an the ``psyplot.app`` in the
-``/Applications`` folder which you can use to open the psyplot GUI. Otherwise
-type ``psyplot`` in the terminal to open the GUI.
+It will ask you, whether you want to add a ``psyplot`` alias to your
+``.bashrc``, such that you can easily start the terminal and type
+``psyplot`` to start the GUI. You can avoid this by setting
+``NO_PSYPLOT_ALIAS=1``. Hence, to install ``psyplot-conda`` without any
+terminal interaction, run::
+
+    NO_PSYPLOT_ALIAS=1 bash '<Path-to-the-downloaded-file.sh>' -b -p <target-path>
+
+
+Installation on OS X
+--------------------
+You can either install it from the terminal using a bash-script (``.sh`` file),
+or you can install a self-contained app using an installer (``.pkg`` file).
+
+The bash script will install a conda installation in your desired location.
+Both will create a ``Psyplot.app`` (see below).
+
+Installation using the bash script
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Download the bash script (file ending on ``'.sh'`` for MacOSX) from
+the Releases_ page and open a terminal window.
+
+Type::
+
+    bash '<path-to-the-downloaded-file.sh>'
+
+and simply follow the instructions.
+
+For more informations on the command line options type
+
+Type::
+
+    bash '<Path-to-the-downloaded-file.sh>' --help
+
+By default, the installer asks whether you want to install a ``Psyplot.app``
+into your ``Applications`` directory. You can avoid this be setting
+``NO_PSYPLOT_APP=1``.
+
+Furthermore it will ask you, whether you want to add a ``psyplot`` alias to
+your ``.bash_profile``, such that you can easily start the terminal and type
+``psyplot`` to start the GUI. You can avoid this by setting
+``NO_PSYPLOT_ALIAS=1``. Hence, to install ``psyplot-conda`` without any
+terminal interaction, run::
+
+    NO_PSYPLOT_APP=1 NO_PSYPLOT_ALIAS=1 bash '<Path-to-the-downloaded-file.sh>' -b -p <target-path>
+
+Installation using the OS X package installer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Just download the ``.pkg`` file, double click it and follow the instructions.
+It will create a ``Psyplot.app`` in the specified location.
 
 
 Installation on Windows
