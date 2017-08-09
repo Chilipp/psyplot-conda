@@ -1,10 +1,12 @@
 name: psyplot-conda
 version: 0.01
 
-channels:
+channels: &id1
     - https://conda.anaconda.org/conda-forge
     - http://repo.continuum.io/pkgs/free/
     - https://conda.anaconda.org/chilipp
+
+conda_default_channels: *id1  
 
 specs:
     # Specs for psyplot-conda. Note that they are replaced by the
