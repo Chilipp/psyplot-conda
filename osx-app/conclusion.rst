@@ -1,7 +1,8 @@
-Congratulations! You're done!
+Congratulations! You successfully installed psyplot!
 
-Start psyplot by clicking on the app. To update any of the packages,
-run::
+Start it by clicking on the app.
+
+An useful hint: To update any of the packages, run::
 
     !conda update <pkg-name>
 
