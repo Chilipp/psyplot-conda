@@ -81,13 +81,13 @@ test_script:
   # run tests for psyplot
   - py.test -v psyplot
   # run tests for psyplot-gui
-  - py.test -v psyplot-gui
+  - py.test -v psyplot-gui -k "UrlHelpTest or Console"
   # run (some) tests for psy-simple
   - py.test -v psy-simple -k "LinePlotterTest2D or Simple2DPlotterTest2D"
   # run (some) tests for psy-maps
-  - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
+  - py.test -v psy-maps psy-maps/tests/test_plotters.py::FieldPlotterTest2D
   # run tests for psy-reg
-  - py.test -v psy-reg
+  - py.test -v psy-reg -k DensityRegPlotterTest
 artifacts:
   - path: psyplot-conda-*-Windows-*.exe
     name: installer
@@ -100,5 +100,6 @@ deploy:
   artifacts: installer
   draft: true
   prerelease: true
+  force_update: true
   on:
     appveyor_repo_tag: true        # deploy on tag push only

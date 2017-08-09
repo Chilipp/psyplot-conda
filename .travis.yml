@@ -110,17 +110,18 @@ script:
   # install pytest
   - pip install pytest
   # try to import some libraries for test
-  - python -c "import psyplot; import netCDF4"
+  - which psyplot
+  - psyplot -aV
   # run tests for psyplot
   - py.test -v psyplot
   # run tests for psyplot-gui
-  - py.test -v psyplot-gui
+  - py.test -v psyplot-gui -k "UrlHelpTest or Console"
   # run (some) tests for psy-simple
   - py.test -v psy-simple -k "LinePlotterTest2D or Simple2DPlotterTest2D"
   # run (some) tests for psy-maps
-  - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
+  - py.test -v psy-maps psy-maps/tests/test_plotters.py::FieldPlotterTest2D
   # run tests for psy-reg
-  - py.test -v psy-reg
+  - py.test -v psy-reg -k DensityRegPlotterTest
 
 before_deploy:
     - export FINAL_FILE=$(ls psyplot-conda-*-"${OS_NAME}"-*.sh)
