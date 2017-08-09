@@ -81,6 +81,9 @@ install:
         export PKG_VERSION=${TRAVIS_TAG:1};
     fi
   - export ARGS="-v $PKG_VERSION"
+  - CONSTRUCTOR_DIR=$HOME/.conda/constructor/$TRAVIS_OS_NAME-64
+  - "mkdir -p $CONSTRUCTOR_DIR || :"
+  - mv $HOME/miniconda/pkgs/*.tar.bz2 $CONSTRUCTOR_DIR
 
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
