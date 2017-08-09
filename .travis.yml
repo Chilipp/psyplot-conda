@@ -94,7 +94,9 @@ script:
   # construct the executable
   - constructor psyplot-conda
   # create the app
-  - if [[ $TRAVIS_OS_NAME == "osx" ]]; then bash create_package.sh; fi
+  - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
+        bash create_package.sh;
+    fi
   # execute the executable
   - rm -r $HOME/miniconda
   - NO_PSYPLOT_ALIAS=1 NO_PSYPLOT_APP=1 bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
@@ -118,7 +120,8 @@ script:
 before_deploy:
     - export FINAL_FILE=$(ls psyplot-conda-*-"${OS_NAME}"-*.sh)
     - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
-          export FINAL_FILE=$FINAL_FILE Psyplot.pkg
+          export FINAL_FILE=$FINAL_FILE Psyplot.pkg;
+      fi
 
 deploy:
   - provider: script
