@@ -9,9 +9,15 @@ cd work
 sed -i "s/0.01/$PKG_VERSION/" distribution.xml
 chmod +x scripts/postinstall
 
+INSTALLER=`ls ../psyplot-conda-*MacOSX-*.sh`
+
 # extract the app
 tar xjvf `conda build ../recipes/psyplot-gui --output | tail -n 1` psyplotapp
 mv psyplotapp Psyplot.app
+
+# use correct file size
+SIZE=$(`du -ks $HOME/psyplot-conda | cut -f1`+`du -ks Psyplot.app | cut -f1` | bc -l)
+sed -r -i "s/installKBytes=[0-9]+/installKBytest=$SIZE/" distribution.xml
 
 # convert intro, lices and conclusions to html
 mkdir resources || :
@@ -19,7 +25,7 @@ pandoc -s -f markdown ../LICENSE -o resources/license.html
 pandoc -s ../psyplot-conda/intro.rst -o resources/welcome.html
 pandoc -s conclusion.rst -o resources/conclusion.html
 
-cp ../psyplot-conda-*MacOSX-*.sh scripts/psyplot-conda-install.sh
+cp $INSTALLER scripts/psyplot-conda-install.sh
 
 # build the psyplot package
 pkgbuild --component Psyplot.app \
