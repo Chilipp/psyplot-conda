@@ -125,7 +125,7 @@ script:
 before_deploy:
     - export FINAL_FILE=$(ls psyplot-conda-*-"${OS_NAME}"-*.sh)
     - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
-          export FINAL_FILE=$FINAL_FILE Psyplot.pkg;
+          export FINAL_FILE="$FINAL_FILE Psyplot.pkg";
       fi
 
 deploy:
