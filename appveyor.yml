@@ -77,17 +77,17 @@ test_script:
   - pip install pytest
   # try to import some libraries for test
   - where psyplot
-  - psyplot -aV
-  # run tests for psyplot
-  - py.test -v psyplot
-  # run tests for psyplot-gui
-  - py.test -v psyplot-gui
-  # run (some) tests for psy-simple
-  - py.test -v psy-simple -k "LinePlotterTest2D or Simple2DPlotterTest2D"
-  # run (some) tests for psy-maps
-  - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
-  # run tests for psy-reg
-  - py.test -v psy-reg
+  # - psyplot -aV
+  # # run tests for psyplot
+  # - py.test -v psyplot
+  # # run tests for psyplot-gui
+  # - py.test -v psyplot-gui
+  # # run (some) tests for psy-simple
+  # - py.test -v psy-simple -k "LinePlotterTest2D or Simple2DPlotterTest2D"
+  # # run (some) tests for psy-maps
+  # - py.test -v psy-maps -k "FieldPlotterTest2D and not Circumpolar"
+  # # run tests for psy-reg
+  # - py.test -v psy-reg
 artifacts:
   - path: psyplot-conda-*-Windows-*.exe
     name: installer
