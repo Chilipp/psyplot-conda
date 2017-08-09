@@ -13,11 +13,6 @@ chmod +x scripts/postinstall
 tar xjvf `conda build ../recipes/psyplot-gui --output | tail -n 1` psyplotapp
 mv psyplotapp Psyplot.app
 
-# use correct file size
-SIZE=$(echo `gstat --printf="%s" ~/Downloads/psyplot-conda-1.0.0-MacOSX-x86_64.sh`/1000. | bc -l)
-SIZE=$(`printf %.0f $SIZE`+`du -ks Psyplot.app | cut -f1` | bc -l)
-sed -r -i "s/installKBytes=[0-9]+/installKBytest=$SIZE/" distribution.xml
-
 # convert intro, lices and conclusions to html
 mkdir resources || :
 pandoc -s -f markdown ../LICENSE -o resources/license.html
