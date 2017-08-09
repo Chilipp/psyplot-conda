@@ -44,11 +44,6 @@ install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-  - if [[ $TRAVIS_TAG == "" ]]; then
-        ARGS="";
-    else
-        ARGS="-v $TRAVIS_TAG";
-    fi
   # update conda
   - conda env create -f environment.yml
   - conda install constructor conda-build
@@ -80,6 +75,12 @@ install:
   - export PACKAGES="recipes/psyplot recipes/psy-simple recipes/psy-maps recipes/psy-reg recipes/psyplot-gui"
   - conda config --add channels chilipp
   - conda config --add channels conda-forge
+  - if [[ $TRAVIS_TAG == '' ]]; then
+        export PKG_VERSION=0.01;
+    else
+        export PKG_VERSION=${TRAVIS_TAG:1};
+    fi
+  - export ARGS="-v $PKG_VERSION"
 
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
