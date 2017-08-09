@@ -117,10 +117,12 @@ script:
 
 before_deploy:
     - export FINAL_FILE=$(ls psyplot-conda-*-"${OS_NAME}"-*.sh)
+    - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
+          export FINAL_FILE=$FINAL_FILE Psyplot.pkg
 
 deploy:
   - provider: script
-    script: ci/deploy_nightly.sh "philipp.sommer@unil.ch:$SWITCH_DRIVE_PW" "$FINAL_FILE"
+    script: ci/deploy_nightly.sh "philipp.sommer@unil.ch:$SWITCH_DRIVE_PW" $FINAL_FILE
     skip_cleanup: true
     on:
       all_branches: true

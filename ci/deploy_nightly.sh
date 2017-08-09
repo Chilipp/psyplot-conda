@@ -4,4 +4,11 @@
 #
 #     bash deploy_nightly user:password filename
 
-curl -X PUT -u $1 "https://drive.switch.ch/remote.php/webdav/psyplot-conda/$TRAVIS_BRANCH/$2" --data-binary @"$2"
+first=""
+for arg in $@; do
+    if [[ $first == "" ]]; then
+        first=False
+    else
+        curl -X PUT -u $1 "https://drive.switch.ch/remote.php/webdav/psyplot-conda/$TRAVIS_BRANCH/$arg" --data-binary @$arg
+    fi
+done
