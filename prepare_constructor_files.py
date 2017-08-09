@@ -149,6 +149,14 @@ else:
 if osp.exists(osp.join(build_dir, post_file)):
     construct['post_install'] = post_file
 
+# make sure we use the correct mkl version in post_win.bat
+if sys.platform.startswith('win'):
+    with open(osp.join(build_dir, post_file)) as f:
+        post_script = f.read()
+    with open(osp.join(build_dir, post_file), 'w') as f:
+        f.write(post_script.replace(
+            'mkl', 'mkl=%s' % '='.join(all_versions['mkl'])))
+
 # for packages in the psyplot framework, we use our own local builds
 builds = []
 for pkg_path in local_packages:
