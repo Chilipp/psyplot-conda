@@ -140,6 +140,15 @@ if version:
 construct['specs'] = ['python %s*' % py_version, 'conda', 'pip'] + [
     '%s %s' % (name, ' '.join(v)) for name, v in all_versions.items()]
 
+if sys.platform.startswith('win'):
+    post_file = 'post_win.bat'
+elif sys.platform.startswith('darwin'):
+    post_file = 'post_osx.sh'
+else:
+    post_file = 'post_linux.sh'
+if osp.exists(osp.join(build_dir, post_file)):
+    construct['post_install'] = post_file
+
 # for packages in the psyplot framework, we use our own local builds
 builds = []
 for pkg_path in local_packages:
