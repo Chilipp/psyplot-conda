@@ -158,14 +158,13 @@ if sys.platform.startswith('win'):
             'mkl', 'mkl=%s' % '='.join(all_versions['mkl'])))
 
 # for packages in the psyplot framework, we use our own local builds
-builds = []
-for pkg_path in local_packages:
-    if not args.no_build:
-        spr.check_call(['conda', 'build', pkg_path, '--no-test'],
-                       stdout=sys.stdout, stderr=sys.stderr)
-    builds.append(file2html(spr.check_output(
-        ['conda', 'build', pkg_path, '--output']).decode(
-            'utf-8').strip().splitlines()[-1]))
+if not args.no_build:
+    spr.check_call(['conda', 'build', '--no-test'] + list(local_packages),
+                   stdout=sys.stdout, stderr=sys.stderr)
+builds = [
+    file2html(s) for s in spr.check_output(
+        ['conda', 'build', '--output'] + list(local_packages)).decode(
+            'utf-8').splitlines()]
 
 if builds:
     construct['packages'] = builds
