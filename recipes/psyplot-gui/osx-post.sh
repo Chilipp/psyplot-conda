@@ -7,11 +7,11 @@
 #
 # This link points to the Psyplot.app folder in this environment.
 
-cp -r $PREFIX/psyplotapp $PREFIX/Psyplot.app
-rm -rf $PREFIX/psyplotapp
+cp -r "$PREFIX"/psyplotapp "$PREFIX"/Psyplot.app
+rm -rf "$PREFIX"/psyplotapp
 
 # set the correct paths in run.sh
-cat > $PREFIX/Psyplot.app/Contents/MacOS/run.sh << EOF
+cat > "$PREFIX"/Psyplot.app/Contents/MacOS/run.sh << EOF
 #!/bin/bash
 source "$PREFIX"/bin/activate "$PREFIX"
 "$PREFIX"/bin/python "$PREFIX"/bin/psyplot $@
