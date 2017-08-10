@@ -64,9 +64,6 @@ install:
   - conda env export -n psyplot_conda
   # print versions of all the important requirements
   - psyplot -aV
-  # export the pw to make it available for the deploy
-  - export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE
-  - export PACKAGES="recipes/psyplot recipes/psy-simple recipes/psy-maps recipes/psy-reg recipes/psyplot-gui"
   - conda config --add channels chilipp
   - conda config --add channels conda-forge
   - if [[ $TRAVIS_TAG == '' ]]; then
@@ -75,14 +72,17 @@ install:
         export PKG_VERSION=${TRAVIS_TAG:1};
     fi
   - export ARGS="-v $PKG_VERSION"
-  - CONSTRUCTOR_DIR=$HOME/.conda/constructor/$TRAVIS_OS_NAME-64
-  - "mkdir -p $CONSTRUCTOR_DIR || :"
-  - mv $HOME/miniconda/pkgs/*.tar.bz2 $CONSTRUCTOR_DIR
   # build the receipts and prepare the constructor files
-  - python prepare_constructor_files.py $PACKAGES $ARGS -n psyplot_conda
+  - python prepare_constructor_files.py recipes/* $ARGS -n psyplot_conda
   # deactivate conda environment and delete miniconda
   - source deactivate
   - cat psyplot-conda/construct.yaml
+  # move already downloaded packages to the constructor directory
+  - CONSTRUCTOR_DIR=$HOME/.conda/constructor/$TRAVIS_OS_NAME-64
+  - "mkdir -p $CONSTRUCTOR_DIR || :"
+  - mv $HOME/miniconda/pkgs/*.tar.bz2 $CONSTRUCTOR_DIR
+  # export the pw to make it available for the deploy
+  - export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE
 
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
