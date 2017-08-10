@@ -32,6 +32,7 @@ pkgbuild --component Psyplot.app \
          --scripts scripts \
          --version $PKG_VERSION \
          --ownership recommended \
+         --install-location /Applications
          Psyplot.pkg
 
 # build the final package
