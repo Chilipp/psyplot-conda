@@ -12,7 +12,7 @@ chmod +x scripts/postinstall
 INSTALLER=`ls ../psyplot-conda-*MacOSX-*.sh`
 
 # extract the app
-tar xjvf /Users/psommer/miniconda3/pkgs/psyplot-gui-1.0.0.post1-py36h4672e7b_0.tar.bz2 psyplotapp  #`conda build ../recipes/psyplot-gui --output | tail -n 1` psyplotapp
+tar xjvf `conda build ../recipes/psyplot-gui --output | tail -n 1` psyplotapp
 mv psyplotapp Psyplot.app
 
 # use correct file size
