@@ -40,7 +40,7 @@ install:
   - cd psy-reg && python setup.py install && cd ../
   # prepare the recipes
   - python recipe_from_setup.py psyplot recipes
-  - python recipe_from_setup.py psyplot-gui psyplot-gui/ci/conda_recipe
+  - python recipe_from_setup.py psyplot-gui recipes
   - python recipe_from_setup.py psy-simple recipes
   - python recipe_from_setup.py psy-maps recipes
   - python recipe_from_setup.py psy-reg recipes
@@ -55,9 +55,9 @@ install:
   - conda config --add channels conda-forge
   # build the receipts and prepare the constructor files
   - IF "%APPVEYOR_REPO_TAG_NAME%"=="" (
-      python prepare_constructor_files.py recipes/psyplot recipes/psy-simple recipes/psy-maps recipes/psy-reg psyplot-gui/ci/conda_recipe/psyplot-gui -f environment_win.yml -n psyplot_conda
+      python prepare_constructor_files.py recipes/* -f environment_win.yml -n psyplot_conda
     ) ELSE (
-      python prepare_constructor_files.py recipes/psyplot recipes/psy-simple recipes/psy-maps recipes/psy-reg psyplot-gui/ci/conda_recipe/psyplot-gui  -f environment_win.yml -n psyplot_conda -v %APPVEYOR_REPO_TAG_NAME%
+      python prepare_constructor_files.py recipes/*  -f environment_win.yml -n psyplot_conda -v %APPVEYOR_REPO_TAG_NAME%
     )
   - cat psyplot-conda/construct.yaml
   - deactivate
