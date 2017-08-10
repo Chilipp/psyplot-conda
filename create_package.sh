@@ -6,18 +6,18 @@ cp -r osx-app work
 cd work
 
 # insert versions
-sed -i "s/0.01/$PKG_VERSION/" distribution.xml
+sed -i '' "s/0.01/$PKG_VERSION/" distribution.xml
 chmod +x scripts/postinstall
 
 INSTALLER=`ls ../psyplot-conda-*MacOSX-*.sh`
 
 # extract the app
-tar xjvf `conda build ../recipes/psyplot-gui --output | tail -n 1` psyplotapp
+tar xjvf /Users/psommer/miniconda3/pkgs/psyplot-gui-1.0.0.post1-py36h4672e7b_0.tar.bz2 psyplotapp  #`conda build ../recipes/psyplot-gui --output | tail -n 1` psyplotapp
 mv psyplotapp Psyplot.app
 
 # use correct file size
 SIZE=$(echo `du -ks $HOME/psyplot-conda | cut -f1`+`du -ks Psyplot.app | cut -f1` | bc -l)
-sed -r -i "s/installKBytes=\"[0-9]+\"/installKBytes=\"$SIZE\"/g" distribution.xml
+sed -E -i '' "s/installKBytes=\"[0-9]+\"/installKBytes=\"$SIZE\"/g" distribution.xml
 
 # convert intro, lices and conclusions to html
 mkdir resources || :

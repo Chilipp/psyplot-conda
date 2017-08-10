@@ -6,12 +6,6 @@ matrix:
   include:
     - os: linux
     - os: osx
-before_install:
-  # make sure, gfortran and gnu-sed are installed
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      brew install gnu-sed --with-default-names;
-    fi
-  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
 git:
     submodules: false
 install:
