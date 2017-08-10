@@ -5,8 +5,7 @@ package:
   version: VERSION
 
 source:
-  fn: psyplot-VERSION.tar.gz
-  url: file://PWD/dist/psyplot-VERSION.tar.gz
+  path: ../../psyplot
 
 build:
   script: python setup.py install --single-version-externally-managed --record record.txt

@@ -5,8 +5,7 @@ package:
   version: VERSION
 
 source:
-  fn: psy-reg-VERSION.tar.gz
-  url: file://PWD/dist/psy-reg-VERSION.tar.gz
+  path: ../../psy-reg
 
 build:
   script: python setup.py install --single-version-externally-managed --record record.txt

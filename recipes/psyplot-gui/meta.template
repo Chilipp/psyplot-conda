@@ -5,8 +5,7 @@ package:
   version: VERSION
 
 source:
-  fn: psyplot-gui-VERSION.tar.gz
-  url: file://PWD/dist/psyplot-gui-VERSION.tar.gz
+  path: ../../psyplot-gui
 
 requirements:
   build:

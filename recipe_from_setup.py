@@ -8,15 +8,13 @@ Call signature::
     python build_package.py <path-to-package>
 """
 import os.path as osp
-import sys
 import yaml
-import subprocess as spr
-import pathlib
 import argparse
 
 
 def get_directory(s):
     return osp.dirname(osp.join(s, ''))
+
 
 parser = argparse.ArgumentParser(
     description='Create a conda receipt from python source files')
@@ -24,17 +22,11 @@ parser = argparse.ArgumentParser(
 parser.add_argument('package', help="The path to the Python package",
                     type=get_directory)
 parser.add_argument('outdir', type=get_directory, help="""
-    The output directory. The recipe will be in `outdir`/`basename package`. If
-    this directory already contains a `meta.template` file, this one will be
-    used.""")
+    The output directory. The recipe will be in `outdir`/`basename package`.
+    """)
 
 
 args = parser.parse_args()
-
-
-def file2html(fname):
-    return pathlib.Path(osp.abspath(fname)).as_uri()
-
 
 # Will be set down below from version.py
 __version__ = None
@@ -50,10 +42,6 @@ outdir = args.outdir
 #: The name of the package
 package = osp.basename(path)
 
-#: Run setup.py sdist
-spr.check_call([sys.executable, 'setup.py', 'sdist'],
-               stdout=sys.stdout, stderr=sys.stderr, cwd=path)
-
 # set __version__
 with open(osp.join(path, package.replace('-', '_'), 'version.py')) as f:
     exec(f.read())
@@ -65,25 +53,13 @@ version = __version__
 
 template_file = osp.join(outdir, package, 'meta.template')
 
-if osp.exists(template_file):
-    # Read the meta.template
-    with open(template_file) as f:
-        meta = yaml.load(f)
+# Read the meta.template
+with open(template_file) as f:
+    meta = yaml.load(f)
 
-    # fill in the missing informations
-    meta['package']['version'] = version
-    meta['source']['fn'] = package + '-' + version + '.tar.gz'
-    meta['source']['url'] = file2html(osp.join(
-        path, 'dist', meta['source']['fn']))
+# fill in the missing informations
+meta['package']['version'] = version
 
-    # write out the recipe
-    with open(osp.join(outdir, package, 'meta.yaml'), 'w') as f:
-        yaml.dump(meta, f, default_flow_style=False)
-
-else:
-
-    spr.check_call(['conda', 'skeleton', 'pypi', '--manual-url',
-                    file2html(osp.join(
-                        path, 'dist', package + '-' + version + '.tar.gz')),
-                    '--output-dir', outdir],
-                   stdout=sys.stdout, stderr=sys.stderr)
+# write out the recipe
+with open(osp.join(outdir, package, 'meta.yaml'), 'w') as f:
+    yaml.dump(meta, f, default_flow_style=False)

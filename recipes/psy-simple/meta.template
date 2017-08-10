@@ -5,8 +5,7 @@ package:
   version: VERSION
 
 source:
-  fn: psy-simple-VERSION.tar.gz
-  url: file://PWD/dist/psy-simple-VERSION.tar.gz
+  path: ../../psy-simple
 
 build:
   script: python setup.py install --single-version-externally-managed --record record.txt
