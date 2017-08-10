@@ -1,9 +1,0 @@
-#!/bin/bash
-
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-conda_bin=$DIR/../psyplot-conda/bin
-
-source $conda_bin/activate root
-
-$conda_bin/python $conda_bin/psyplot -pwd $HOME $@
