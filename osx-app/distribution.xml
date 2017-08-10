@@ -10,8 +10,7 @@
     <conclusion file="conclusion.html" />
     <!-- List all component packages -->
     <pkg-ref id="com.psyplot.io"
-        version="0.01"
-        installKBytes="1003000">Psyplot.pkg</pkg-ref>
+        version="0.01">Psyplot.pkg</pkg-ref>
     <!-- List them again here. They can now be organized
          as a hierarchy if you want. -->
     <choices-outline>

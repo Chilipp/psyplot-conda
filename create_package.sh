@@ -17,12 +17,16 @@ mv psyplotapp Psyplot.app
 
 # use correct file size
 SIZE=$(echo `du -ks $HOME/psyplot-conda | cut -f1`+`du -ks Psyplot.app | cut -f1` | bc -l)
-sed -E -i '' "s/installKBytes=\"[0-9]+\"/installKBytes=\"$SIZE\"/g" distribution.xml
+cp ../psyplot-conda/intro.rst .
+cat >> intro.rst << EOF
+
+The final installation will require approximately $SIZE KB of disk space.
+EOF
 
 # convert intro, lices and conclusions to html
 mkdir resources || :
 pandoc -s -f markdown ../LICENSE -o resources/license.html
-pandoc -s ../psyplot-conda/intro.rst -o resources/welcome.html
+pandoc -s intro.rst -o resources/welcome.html
 pandoc -s conclusion.rst -o resources/conclusion.html
 
 cp $INSTALLER scripts/psyplot-conda-install.sh
