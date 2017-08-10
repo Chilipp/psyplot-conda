@@ -77,7 +77,7 @@ src_dir = args.input_dir
 
 build_dir = args.output_dir
 
-local_versions = OrderedDict([(pkg, get_version(pkg)[0]) for pkg in
+local_versions = OrderedDict([(pkg, get_version(pkg)) for pkg in
                               map(osp.basename, local_packages)])
 
 with open(args.environment_file) as f:
@@ -165,6 +165,14 @@ builds = [
     file2html(s) for s in spr.check_output(
         ['conda', 'build', '--output'] + list(local_packages)).decode(
             'utf-8').splitlines()]
+
+if sys.platform.startswith('win'):
+    scripts_dir = osp.dirname(sys.executable)
+    mkl_file = next(iter(
+        glob.glob(osp.join(scripts_dir, '..', 'pkgs', 'mkl-*.tar.bz2'))), None)
+    if mkl_file is not None:
+        builds.append(mkl_file)
+
 
 if builds:
     construct['packages'] = builds
