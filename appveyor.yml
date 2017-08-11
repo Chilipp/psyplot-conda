@@ -69,7 +69,8 @@ test_script:
   - constructor psyplot-conda
   # create executable without shortcut
   - grep -v menuinst psyplot-conda\construct.yaml > psyplot-conda\construct2.yaml
-  - rename psyplot-conda\construct2.yaml psyplot-conda\construct.yaml
+  - ps: "Rename-Item -NewName psyplot-conda\\construct.yaml psyplot-conda\\construct2.yaml"
+  - cat psyplot-conda/construct.yaml
   - constructor psyplot-conda --output-dir psyplot-conda
   - ps: "Get-ChildItem psyplot-conda\\psyplot-conda-*-Windows-*.exe | Rename-Item -NewName { $_.name -Replace '-Windows-', '-Windows-no-shortcut-' }"
   # deactivate conda environment and delete the old files
