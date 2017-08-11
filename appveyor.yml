@@ -71,8 +71,8 @@ test_script:
   - cd psyplot-conda
   - grep -v menuinst construct.yaml > construct2.yaml
   - ps: "Move-Item -Path construct2.yaml -Destination construct.yaml -Force"
-  - ECHO "exclude:" >> construct.yaml
-  - ECHO "- menuinst" >> construct.yaml 
+  - "ECHO exclude: >> construct.yaml"
+  - "ECHO - menuinst >> construct.yaml"
   - cat construct.yaml
   - constructor .
   - ps: "Get-ChildItem psyplot-conda-*-Windows-*.exe | Rename-Item -NewName { $_.name -Replace '-Windows-', '-Windows-no-shortcut-' }"
