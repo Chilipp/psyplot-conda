@@ -67,6 +67,11 @@ build: false
 test_script:
   # construct the executable
   - constructor psyplot-conda
+  # create executable without shortcut
+  - grep -v menuinst psyplot-conda\construct.yaml > psyplot-conda\construct2.yaml
+  - rename psyplot-conda\construct2.yaml psyplot-conda\construct.yaml
+  - constructor psyplot-conda --output-dir psyplot-conda
+  - ps: "Get-ChildItem psyplot-conda\\psyplot-conda-*-Windows-*.exe | Rename-Item -NewName { $_.name -Replace '-Windows-', '-Windows-no-shortcut-' }"
   # deactivate conda environment and delete the old files
   - ps: "Remove-Item -Recurse -Force C:\\Python36-conda"
   # execute the executable
@@ -89,7 +94,7 @@ test_script:
   # run tests for psy-reg
   - py.test -v psy-reg -k DensityRegPlotterTest
 artifacts:
-  - path: psyplot-conda-*-Windows-*.exe
+  - path: '**\psyplot-conda-*-Windows-*.exe'
     name: installer
 
 deploy:
