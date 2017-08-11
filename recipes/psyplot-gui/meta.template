@@ -1,5 +1,5 @@
-# template for psyplot-gui recipe. Please change ``PWD`` and ``VERSION`` to the
-# correct path and version number. See also ci/enhance_recipe.pypackage:
+# template for psyplot-gui recipe. Please change ``VERSION`` to the
+# version number. See also ci/enhance_recipe.pypackage:
 package:
   name: psyplot-gui
   version: VERSION
