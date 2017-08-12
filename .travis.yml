@@ -121,7 +121,7 @@ script:
   - py.test -v psy-reg -k DensityRegPlotterTest
 
 before_deploy:
-    - "export FINAL_FILE=`ls psyplot-conda-*-${OS_NAME}-*.sh` `ls psyplot-conda-*-${OS_NAME}-*.pkg || echo ''`"
+    - 'export FINAL_FILE="$(ls psyplot-conda-*-${OS_NAME}-*.sh) $(ls psyplot-conda-*-${OS_NAME}-*.pkg || :)"'
 
 deploy:
   - provider: script
