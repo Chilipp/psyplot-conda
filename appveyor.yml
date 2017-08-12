@@ -109,7 +109,6 @@ deploy:
     secure: VxQCHxFVEha6Rr/BuEU58kSYK3K16ENzLzIgqJIOyVHGWDuf1Tszqpmz2zkEX4Wn
   artifacts: installer
   draft: true
-  prerelease: true
   force_update: true
   on:
     appveyor_repo_tag: true        # deploy on tag push only
