@@ -121,7 +121,7 @@ script:
   - py.test -v psy-reg -k DensityRegPlotterTest
 
 before_deploy:
-    - export FINAL_FILE=$(ls psyplot-conda-*-"${OS_NAME}"-*.sh)
+    - export FINAL_FILE=$(ls psyplot-conda-*-"${OS_NAME}"-*.*)
 
 deploy:
   - provider: script
@@ -135,19 +135,10 @@ deploy:
   - provider: releases
     api_key:
       secure: m/ttzXxgMNrjP+MkK+HeeCPdiAEfB+TJRvS5Sqxhpokxud4ji1cUUIB2bpWmD7ujju9w1blfxvqR1nt1CET79FKbDmb/He0JiXwKQyQ007Hzm9stpp1Kt+OXoSrfIzeAqmdhlqkrXdGw076FcVHGw7E5GAueAroGOkH0xw7/QJWGo7bOkzE6SoNTGZ1EV1zlsR3HnPP3679AEmIA6iz9aIsy8dGbq0Tb4TMFP+ddCGzMxhCCO1dcgf9+zBw6dl/sZ1NSkiT1OR428sqKVAG8CM7ulL5xcbqtVjVU2SGCQ5TP7V7bx40RSr+KgS/6L7qXgabWxY26q5LhKi4che5Evg+ki2FP28BzLwwRzdrMErwrd/LTwfoLPPFfJ90+YJ3+FOSDz+V6jweUkQUA7+QNYMUixuypPBiwQbW8XPHxk4Z7poTTUHiE4tqO/VpauAa8T3XGrap18cDrxw8bEqvYUjxUbojy92UyhXntm0iqWBfubLAgoWYZ0PikVxxW6E73wf9suEnQkIUMIDfRAdDYHhQDeWkANt7siZYGDx0zf8iBTkTGrdV6uTx+G9+LxzoSoO5oXyCQD30m9/a6dqftTdkCk5i7i2Xr+EpLHzKK/jG2rR+zmDT5dZKEAbVyK0FcxHHB4+r/8VKZP7C5MhqD11Irc2Xr+9iB/lQTwvmDicc=
-    file: $FINAL_FILE
+    file: psyplot-conda-*-"${OS_NAME}"-*.*
+    file_glob: true
     overwrite: true
     skip_cleanup: true
     on:
       repo: Chilipp/psyplot-conda
       tags: true
-  - provider: releases
-    api_key:
-      secure: m/ttzXxgMNrjP+MkK+HeeCPdiAEfB+TJRvS5Sqxhpokxud4ji1cUUIB2bpWmD7ujju9w1blfxvqR1nt1CET79FKbDmb/He0JiXwKQyQ007Hzm9stpp1Kt+OXoSrfIzeAqmdhlqkrXdGw076FcVHGw7E5GAueAroGOkH0xw7/QJWGo7bOkzE6SoNTGZ1EV1zlsR3HnPP3679AEmIA6iz9aIsy8dGbq0Tb4TMFP+ddCGzMxhCCO1dcgf9+zBw6dl/sZ1NSkiT1OR428sqKVAG8CM7ulL5xcbqtVjVU2SGCQ5TP7V7bx40RSr+KgS/6L7qXgabWxY26q5LhKi4che5Evg+ki2FP28BzLwwRzdrMErwrd/LTwfoLPPFfJ90+YJ3+FOSDz+V6jweUkQUA7+QNYMUixuypPBiwQbW8XPHxk4Z7poTTUHiE4tqO/VpauAa8T3XGrap18cDrxw8bEqvYUjxUbojy92UyhXntm0iqWBfubLAgoWYZ0PikVxxW6E73wf9suEnQkIUMIDfRAdDYHhQDeWkANt7siZYGDx0zf8iBTkTGrdV6uTx+G9+LxzoSoO5oXyCQD30m9/a6dqftTdkCk5i7i2Xr+EpLHzKK/jG2rR+zmDT5dZKEAbVyK0FcxHHB4+r/8VKZP7C5MhqD11Irc2Xr+9iB/lQTwvmDicc=
-    file: Psyplot.pkg
-    overwrite: true
-    skip_cleanup: true
-    on:
-      repo: Chilipp/psyplot-conda
-      tags: true
-      condition: "$TRAVIS_OS_NAME == 'osx'"

@@ -44,6 +44,6 @@ productbuild --distribution distribution.xml \
              --resources resources \
              --package-path Psyplot.pkg \
              --version $PKG_VERSION \
-             ../Psyplot.pkg
+             ../psyplot-conda-$PKG_VERSION-MacOSX-x86_64.pkg
 
 rm Psyplot.pkg
