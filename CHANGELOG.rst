@@ -3,7 +3,6 @@ v1.0.1
 Added
 -----
 - added changelog
-- added docs under http://psyplot.readthedocs.io/projects/psyplot-conda/en/latest/index.html
 - Added Mac OSX ``.pkg`` installer
 
 Changed
