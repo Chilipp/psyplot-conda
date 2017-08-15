@@ -14,7 +14,7 @@ rm -rf "$PREFIX"/psyplotapp
 cat > "$PREFIX"/Psyplot.app/Contents/MacOS/run.sh << EOF
 #!/bin/bash
 source "$PREFIX"/bin/activate "$PREFIX"
-"$PREFIX"/bin/python "$PREFIX"/bin/psyplot $@
+"$PREFIX"/bin/python "$PREFIX"/bin/psyplot -pwd \$HOME \$@
 EOF
 
 exit 0
