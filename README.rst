@@ -47,6 +47,9 @@ psy-simple_, psy-maps_ and psy-reg_ plus the conda package for managing
 virtual environments. These installers have been created using using the
 conda constructor_ package and the packages from the conda-forge_ channel.
 
+Other ways to install psyplot can be found in the
+`psyplot docs <http://psyplot.readthedocs.io/en/latest/installing.html>`__.
+
 
 .. Contents::
 
