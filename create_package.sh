@@ -9,7 +9,13 @@ cd work
 sed -i '' "s/0.01/$PKG_VERSION/" distribution.xml
 chmod +x scripts/postinstall
 
-INSTALLER=`ls ../psyplot-conda-*MacOSX-*.sh`
+# No need to keep the packages
+sed -i '' '/keep_pkgs/d' ../psyplot-conda/construct.yaml
+
+# build the installer
+constructor ../psyplot-conda
+
+INSTALLER=`ls psyplot-conda-*MacOSX-*.sh`
 
 # extract the app
 tar xjvf `conda build ../recipes/psyplot-gui --output | tail -n 1` psyplotapp
