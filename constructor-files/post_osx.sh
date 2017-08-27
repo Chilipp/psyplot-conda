@@ -43,9 +43,6 @@ For this change to become active, you have to open a new terminal.
 # added by psyplot_conda installer
 alias psyplot='open -n -a "$PREFIX"/Psyplot.app --args "-pwd \`pwd\`"'
 EOF
-        echo "
-# added by psyplot_conda installer
-alias psyplot=open \"$PREFIX/bin/psyplot\"" >> $BASH_RC
     fi
 fi
 
