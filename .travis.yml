@@ -9,16 +9,8 @@ matrix:
 git:
     submodules: false
 before_install:
-  # Remove homebrew.
-  - |
-    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      echo ""
-      echo "Removing homebrew from Travis CI to avoid conflicts."
-      curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall > ~/uninstall_homebrew
-      chmod +x ~/uninstall_homebrew
-      ~/uninstall_homebrew -fq
-      rm ~/uninstall_homebrew
-    fi
+  # Remove homebrew geos
+  - "brew uninstall geos || :"
 install:
   # unset the global SWITCH_DRIVE_PW variable because it is not needed during
   # the installation process. This decreases the vulnerability
@@ -46,10 +38,6 @@ install:
   - export PATH="$HOME/miniconda/bin:$ORIG_PATH"
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
-  # set conda-forge channel as default
-  - conda config --remove channels defaults
-  - conda config --add channels defaults
-  - conda config --add channels conda-forge
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
