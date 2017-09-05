@@ -8,16 +8,17 @@ matrix:
     - os: osx
 git:
     submodules: false
-# Remove homebrew.
-- |
-  if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-  echo ""
-  echo "Removing homebrew from Travis CI to avoid conflicts."
-  curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall > ~/uninstall_homebrew
-  chmod +x ~/uninstall_homebrew
-  ~/uninstall_homebrew -fq
-  rm ~/uninstall_homebrew
-  fi
+before_install:
+  # Remove homebrew.
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      echo ""
+      echo "Removing homebrew from Travis CI to avoid conflicts."
+      curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall > ~/uninstall_homebrew
+      chmod +x ~/uninstall_homebrew
+      ~/uninstall_homebrew -fq
+      rm ~/uninstall_homebrew
+    fi
 install:
   # unset the global SWITCH_DRIVE_PW variable because it is not needed during
   # the installation process. This decreases the vulnerability
