@@ -34,8 +34,7 @@ install:
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-"${OS_NAME}"-x86_64.sh -O miniconda.sh;
   - 'echo "backend : module://psyplot_gui.backend" > matplotlibrc'
   - bash miniconda.sh -b -p $HOME/miniconda
-  - export ORIG_PATH=$PATH
-  - export PATH="$HOME/miniconda/bin:$ORIG_PATH"
+  - source $HOME/bin/activate root
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
@@ -103,10 +102,11 @@ script:
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
         bash create_package.sh;
     fi
+  - source deactivate
   # execute the executable
   - rm -r $HOME/miniconda
   # export the new path and remove current miniconda installation
-  - export PATH="$HOME/psyplot-conda/bin:$ORIG_PATH" && hash -r
+  - source $HOME/psyplot-conda/bin/activate root && hash -r
   # install pytest
   - pip install pytest
   # try to import some libraries for test
