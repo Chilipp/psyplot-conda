@@ -34,7 +34,7 @@ install:
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-"${OS_NAME}"-x86_64.sh -O miniconda.sh;
   - 'echo "backend : module://psyplot_gui.backend" > matplotlibrc'
   - bash miniconda.sh -b -p $HOME/miniconda
-  - source $HOME/bin/activate root
+  - source $HOME/miniconda/bin/activate root
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
@@ -77,7 +77,7 @@ install:
   # build the receipts and prepare the constructor files
   - python prepare_constructor_files.py recipes/* $ARGS -n psyplot_conda
   # deactivate conda environment and delete miniconda
-  - source deactivate
+  - source deactivate psyplot_conda
   - cat psyplot-conda/construct.yaml
   # move already downloaded packages to the constructor directory
   - CONSTRUCTOR_DIR=$HOME/.conda/constructor/$TRAVIS_OS_NAME-64
