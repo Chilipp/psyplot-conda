@@ -94,6 +94,7 @@ before_script:
     fi
 
 script:
+  - source $HOME/miniconda/bin/activate root
   # construct the executable
   - constructor psyplot-conda
   # install the new file
