@@ -154,8 +154,11 @@ if sys.platform.startswith('win'):
     with open(osp.join(build_dir, post_file)) as f:
         post_script = f.read()
     with open(osp.join(build_dir, post_file), 'w') as f:
-        f.write(post_script.replace(
-            'mkl', 'mkl=%s' % '='.join(all_versions['mkl'])))
+        post_script = post_script.replace(
+            'mkl', 'mkl=%s' % '='.join(all_versions['mkl']))
+        post_script = post_script.replace(
+            'PYSHPVERSION', '-'.join(all_versions['pyshp']))
+        f.write(post_script)
 
 # for packages in the psyplot framework, we use our own local builds
 if not args.no_build:

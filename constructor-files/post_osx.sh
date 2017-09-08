@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# START pyshp PATCH
+# pkg_resources has difficulties in finding pyshp. Therefore we reinstall it
+# to be save
+$PREFIX/bin/python -c "import shapefile" || $PREFIX/bin/conda install $PREFIX/pkgs/pyshp-*.tar.bz2
+# END pyshp PATCH
+
 # script that is called after the installation of psyplot_conda to ask whether
 # an alias for psyplot shall be created and an app shall be linked
 

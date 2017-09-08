@@ -10,7 +10,9 @@ sed -i '' "s/0.01/$PKG_VERSION/" distribution.xml
 chmod +x scripts/postinstall
 
 # No need to keep the packages
-sed -i '' '/keep_pkgs/d' ../psyplot-conda/construct.yaml
+# however we do need them if we have to reinstall pyshp. Therefore we delete
+# them after the pyshp patch
+sed '/END pyshp PATCH/a "$PREFIX"/pkgs/*.tar.bz2' ../psyplot-conda/post_osx.sh
 
 # build the installer
 constructor ../psyplot-conda
