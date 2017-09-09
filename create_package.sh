@@ -12,7 +12,9 @@ chmod +x scripts/postinstall
 # No need to keep the packages
 # however we do need them if we have to reinstall pyshp. Therefore we delete
 # them after the pyshp patch
-sed '/END pyshp PATCH/a "$PREFIX"/pkgs/*.tar.bz2' ../psyplot-conda/post_osx.sh
+sed -i '' '/END pyshp PATCH/ a\
+rm "$PREFIX"/pkgs/*.tar.bz2 \
+' ../psyplot-conda/post_osx.sh
 
 # build the installer
 constructor ../psyplot-conda
