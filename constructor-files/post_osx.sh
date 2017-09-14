@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# START pyshp PATCH
-# pkg_resources has difficulties in finding pyshp. Therefore we reinstall it
-# to be save
-$PREFIX/bin/python -c "import shapefile" || $PREFIX/bin/conda install $PREFIX/pkgs/pyshp-*.tar.bz2
+# pyshp PATCH
+# pkg_resources has difficulties in finding pyshp and alabaster. Therefore we
+# reinstall them to be save
+$PREFIX/bin/python -c "import alabaster" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/alabaster-*.tar.bz2 &> /dev/null
+$PREFIX/bin/python -c "import shapefile" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/pyshp-*.tar.bz2 &> /dev/null
 # END pyshp PATCH
 
 # script that is called after the installation of psyplot_conda to ask whether
