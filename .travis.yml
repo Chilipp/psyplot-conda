@@ -120,9 +120,7 @@ script:
   # run (some) tests for psy-simple
   - py.test -v psy-simple -k "LinePlotterTest2D or Simple2DPlotterTest2D"
   # run (some) tests for psy-maps
-  - cd psy-maps
-  - py.test -v tests/test_plotters.py::FieldPlotterTest2D --no-removal
-  - cd ../
+  - py.test -v psy-maps/tests/test_plotters.py::FieldPlotterTest2D
   # run tests for psy-reg
   - py.test -v psy-reg -k DensityRegPlotterTest
 
