@@ -124,12 +124,6 @@ script:
   # run tests for psy-reg
   - py.test -v psy-reg -k DensityRegPlotterTest
 
-after_failure:
-  - |
-    for f in `ls /tmp/tmp_psy-maps_*/*grid*.png`; do
-      curl -X PUT -u philipp.sommer@unil.ch:$SWITCH_DRIVE_PW https://drive.switch.ch/remote.php/webdav/psyplot-conda-test-results/$TRAVIS_BRANCH/`basename $f` --data-binary @$f
-    done
-
 before_deploy:
     - 'export FINAL_FILE="$(ls psyplot-conda-*-${OS_NAME}-*.sh) $(ls psyplot-conda-*-${OS_NAME}-*.pkg || :)"'
 
