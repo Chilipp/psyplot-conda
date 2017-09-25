@@ -60,6 +60,7 @@ install:
       python prepare_constructor_files.py recipes/*  -f environment_win.yml -n psyplot_conda -v %APPVEYOR_REPO_TAG_NAME%
     )
   - cat psyplot-conda/construct.yaml
+  - cat psyplot-conda/post_win.bat
   - deactivate
 
 build: false
