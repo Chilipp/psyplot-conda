@@ -5,6 +5,7 @@
 # reinstall them to be save
 $PREFIX/bin/python -c "import alabaster" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/alabaster-*.tar.bz2 &> /dev/null
 $PREFIX/bin/python -c "import shapefile" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/pyshp-*.tar.bz2 &> /dev/null
+$PREFIX/bin/python -c "import dask" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/dask-*.tar.bz2 &> /dev/null
 # END pyshp PATCH
 
 # script that is called after the installation of psyplot_conda to ask whether

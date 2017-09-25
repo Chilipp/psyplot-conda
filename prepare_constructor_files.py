@@ -160,6 +160,8 @@ if sys.platform.startswith('win'):
             'PYSHPVERSION', '-'.join(all_versions['pyshp']))
         post_script = post_script.replace(
             'ALABASTERVERSION', '-'.join(all_versions['alabaster']))
+        post_script = post_script.replace(
+            'DASKVERSION', '-'.join(all_versions['dask']))
         f.write(post_script)
 
 # for packages in the psyplot framework, we use our own local builds
