@@ -162,8 +162,6 @@ if sys.platform.startswith('win'):
             'ALABASTERVERSION', '-'.join(all_versions['alabaster']))
         post_script = post_script.replace(
             'DASKVERSION', '-'.join(all_versions['dask']))
-        post_script = post_script.replace(
-            'INDAVERSION', '-'.join(all_versions['inda']))
         f.write(post_script)
 
 # for packages in the psyplot framework, we use our own local builds
