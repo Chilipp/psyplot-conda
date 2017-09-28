@@ -14,7 +14,7 @@ else
     $PREFIX/bin/python -c "import shapefile" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/pyshp-*.tar.bz2 &> /dev/null
     $PREFIX/bin/python -c "import dask" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/dask-*.tar.bz2 &> /dev/null
 fi
-$PREFIX/bin/python -c "import alabaster, idna, shapefile, dask"
+$PREFIX/bin/python -c "import alabaster, idna, shapefile, dask, cartopy"
 # END pyshp PATCH
 
 # script that is called after the installation of psyplot_conda to ask whether
