@@ -102,8 +102,8 @@ script:
   - DEBUG_PSYPLOT_INSTALLATION=1 NO_PSYPLOT_ALIAS=1 NO_PSYPLOT_APP=1 bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
   # create the app
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
-        source $HOME/miniconda/bin/activate root;
-        bash create_package.sh;
+        source $HOME/miniconda/bin/activate root &&
+        bash create_package.sh &&
         source deactivate;
     fi
   # execute the executable

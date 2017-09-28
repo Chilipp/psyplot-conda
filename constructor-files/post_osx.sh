@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
+    set -x
+fi
+
 # pyshp PATCH
 # pkg_resources has difficulties in finding pyshp and alabaster. Therefore we
 # reinstall them to be save
@@ -13,6 +17,9 @@ else
     $PREFIX/bin/python -c "import idna" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/idna-*.tar.bz2 &> /dev/null
     $PREFIX/bin/python -c "import shapefile" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/pyshp-*.tar.bz2 &> /dev/null
     $PREFIX/bin/python -c "import dask" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/dask-*.tar.bz2 &> /dev/null
+fi
+if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
+    echo "Testing import"
 fi
 $PREFIX/bin/python -c "import alabaster, idna, shapefile, dask, cartopy"
 # END pyshp PATCH
