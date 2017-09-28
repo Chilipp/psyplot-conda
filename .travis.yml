@@ -98,7 +98,7 @@ script:
   # construct the executable
   - constructor psyplot-conda
   # install the new file
-  - NO_PSYPLOT_ALIAS=1 NO_PSYPLOT_APP=1 bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
+  - DEBUG_PSYPLOT_INSTALLATION=1 NO_PSYPLOT_ALIAS=1 NO_PSYPLOT_APP=1 bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
   # create the app
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
         bash create_package.sh;
