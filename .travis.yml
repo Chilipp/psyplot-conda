@@ -97,13 +97,15 @@ script:
   - source $HOME/miniconda/bin/activate root
   # construct the executable
   - constructor psyplot-conda
+  - source deactivate
   # install the new file
   - DEBUG_PSYPLOT_INSTALLATION=1 NO_PSYPLOT_ALIAS=1 NO_PSYPLOT_APP=1 bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
   # create the app
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
+        source $HOME/miniconda/bin/activate root;
         bash create_package.sh;
+        source deactivate;
     fi
-  - source deactivate
   # execute the executable
   - rm -r $HOME/miniconda
   # export the new path and remove current miniconda installation
