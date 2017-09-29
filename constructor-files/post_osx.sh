@@ -5,23 +5,21 @@ if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
 fi
 
 # pyshp PATCH
-# pkg_resources has difficulties in finding pyshp and alabaster. Therefore we
+# pkg_resources has difficulties in finding pyshp and various others. Therefore we
 # reinstall them to be save
 if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
-    $PREFIX/bin/python -c "import alabaster" || $PREFIX/bin/conda install $PREFIX/pkgs/alabaster-*.tar.bz2
-    $PREFIX/bin/python -c "import idna" || $PREFIX/bin/conda install $PREFIX/pkgs/idna-*.tar.bz2
     $PREFIX/bin/python -c "import shapefile" || $PREFIX/bin/conda install $PREFIX/pkgs/pyshp-*.tar.bz2
+    $PREFIX/bin/python -c "import toolz" || $PREFIX/bin/conda install $PREFIX/pkgs/toolz-*.tar.bz2
     $PREFIX/bin/python -c "import dask" || $PREFIX/bin/conda install $PREFIX/pkgs/dask-*.tar.bz2
 else
-    $PREFIX/bin/python -c "import alabaster" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/alabaster-*.tar.bz2 &> /dev/null
-    $PREFIX/bin/python -c "import idna" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/idna-*.tar.bz2 &> /dev/null
     $PREFIX/bin/python -c "import shapefile" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/pyshp-*.tar.bz2 &> /dev/null
+    $PREFIX/bin/python -c "import toolz" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/toolz-*.tar.bz2 &> /dev/null
     $PREFIX/bin/python -c "import dask" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/dask-*.tar.bz2 &> /dev/null
 fi
 if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
     echo "Testing import"
 fi
-$PREFIX/bin/python -c "import alabaster, idna, shapefile, dask, cartopy"
+$PREFIX/bin/python -c "import shapefile, toolz, dask, cartopy"
 # END pyshp PATCH
 
 # script that is called after the installation of psyplot_conda to ask whether
