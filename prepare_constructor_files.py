@@ -62,6 +62,9 @@ def get_all_versions(name=None):
 
 
 all_versions = get_all_versions(args.name)
+root_versions = get_all_versions('root')
+all_versions['conda'] = root_versions['conda']
+all_versions['idna'] = root_versions['idna']
 
 
 def get_version(mod, d=all_versions):
@@ -137,8 +140,9 @@ if version:
     construct['version'] = version
 
 # use all installed packages in the given environment
-construct['specs'] = ['python %s*' % py_version, 'conda', 'pip'] + [
-    '%s %s' % (name, ' '.join(v)) for name, v in all_versions.items()]
+construct['specs'] = ['python %s*' % py_version] + [
+    '%s %s' % (name, ' '.join(v)) for name, v in all_versions.items()
+    if name != 'python']
 
 if sys.platform.startswith('win'):
     post_file = 'post_win.bat'
