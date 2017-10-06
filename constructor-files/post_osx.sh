@@ -44,7 +44,7 @@ environent variable to any value, e.g. `export NO_PSYPLOT_ALIAS=1`)'
         echo "
 You may wish to edit your $BASH_RC:
 
-alias psyplot='open -n -a \"$PREFIX\"/Psyplot.app --args \"-pwd \`pwd\`\"'
+$ alias psyplot=$PREFIX/bin/psyplot
 "
     else
         if [ -f $BASH_RC ]; then
@@ -61,9 +61,9 @@ newly created $BASH_RC"
         echo "
 For this change to become active, you have to open a new terminal.
 "
-        cat >> $BASH_RC << EOF
+        echo "
 # added by psyplot_conda installer
-alias psyplot='open -n -a "$PREFIX"/Psyplot.app --args "-pwd \`pwd\`"'
+alias psyplot=\"$PREFIX/bin/psyplot\"" >> $BASH_RC
 EOF
     fi
 fi
