@@ -12,6 +12,10 @@ os: unstable
 install:
   # checkout submodules (but not recursively)
   - git submodule update --init
+  # update to latest dev branch on nightly builds
+  - IF "%APPVEYOR_REPO_BRANCH%"=="nightly" (
+        git submodule foreach 'git checkout dev && git pull origin dev'
+    )
   # Install miniconda Python
   - "powershell ./ci/install_python.ps1"
    # Prepend newly installed Python to the PATH of this build (this cannot be
@@ -31,6 +35,11 @@ install:
   - conda info -a
   - conda env create -f environment_win.yml
   - conda install constructor conda-build
+  # HACK: Temporary fix for libconda
+  - git clone https://github.com/Chilipp/libconda
+  - cd libconda && python setup.py install && cd ..
+  - ps: Remove-Item -Recurse -Force libconda
+  # END HACK
   - activate psyplot_conda
   # install the submodules
   - cd psyplot && python setup.py install && cd ../
