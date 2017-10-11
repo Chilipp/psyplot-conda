@@ -12,10 +12,6 @@ os: unstable
 install:
   # checkout submodules (but not recursively)
   - git submodule update --init
-  # update to latest dev branch on nightly builds
-  - IF "%APPVEYOR_REPO_BRANCH%"=="nightly" (
-        git submodule foreach 'git checkout dev && git pull origin dev'
-    )
   # Install miniconda Python
   - "powershell ./ci/install_python.ps1"
    # Prepend newly installed Python to the PATH of this build (this cannot be
