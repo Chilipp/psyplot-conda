@@ -49,9 +49,6 @@ install:
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
         conda install -c conda-forge pandoc;
     fi
-  - if [[ $TRAVIS_BRANCH == nightly ]]; then
-        conda install anaconda-client;
-    fi
   - source activate psyplot_conda
   # install the submodules
   - cd psyplot && python setup.py install && cd ../
@@ -148,6 +145,7 @@ script:
         export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE;
     fi
   - if [[ $TRAVIS_BRANCH == nightly ]]; then
+        conda install conda-build anaconda-client
         export CONDA_REPO_TOKEN=$CONDA_TOKEN_SAVE;
     fi
 
