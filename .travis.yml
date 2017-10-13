@@ -145,7 +145,7 @@ script:
         export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE;
     fi
   - if [[ $TRAVIS_BRANCH == nightly ]]; then
-        conda install conda-build anaconda-client
+        conda install conda-build anaconda-client;
         export CONDA_REPO_TOKEN=$CONDA_TOKEN_SAVE;
     fi
 
