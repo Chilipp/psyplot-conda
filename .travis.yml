@@ -152,7 +152,7 @@ before_deploy:
     - 'export FINAL_FILE="$(ls psyplot-conda-*-${OS_NAME}-*.sh) $(ls psyplot-conda-*-${OS_NAME}-*.pkg || :)"'
     - if [[ $TRAVIS_BRANCH == nightly ]]; then
           conda install conda-build anaconda-client;
-          export BUILDS=`conda build --output recipes/* --python 3.6`;
+          export BUILDS="$(ls builds/*)";
       fi
 
 deploy:

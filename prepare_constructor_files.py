@@ -1,6 +1,7 @@
 # Python script to prepare the psyplot-conda constructor files
 import sys
 import six
+import os
 import os.path as osp
 import shutil
 from itertools import chain
@@ -172,6 +173,12 @@ builds = [
     file2html(s) for s in spr.check_output(
         ['conda', 'build', '--output'] + list(local_packages)).decode(
             'utf-8').splitlines()]
+for f in builds:
+    try:
+        os.makedirs('builds')
+    except Exception:
+        pass
+    os.rename(f, osp.join('builds', osp.basename(f)))
 
 if sys.platform.startswith('win'):
     scripts_dir = osp.dirname(sys.executable)
