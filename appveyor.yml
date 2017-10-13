@@ -2,8 +2,6 @@ environment:
 
   PYTHON: "C:\\Python36-conda"
   PSYPLOT_PYTHON: "C:\\psyplot-conda-installation"
-  CONDA_REPO_TOKEN:
-    secure: hkLawcPDHN0IEWlsKpR4WgYyKu5xhgwY7cPVve5yqnm3heYv0XcW2oUfypQcev1B
 
   matrix:
     - PYTHON_VERSION: "3.6"
@@ -13,8 +11,6 @@ environment:
 os: unstable
 install:
   - "SET ORIGPATH=%PATH%"
-  - setlocal
-  - set CONDA_REPO_TOKEN=
   # checkout submodules (but not recursively)
   - git submodule update --init
   # Install miniconda Python
@@ -70,7 +66,6 @@ install:
   - cat psyplot-conda/construct.yaml
   - cat psyplot-conda/post_win.bat
   - deactivate
-  - endlocal
 
 build: false
 
@@ -112,18 +107,6 @@ test_script:
 artifacts:
   - path: '**\psyplot-conda-*-Windows-*.exe'
     name: installer
-
-after_test:
-  - "SET PATH=%PSYPLOT_PYTHON%;%PSYPLOT_PYTHON%\\Scripts;%ORIGPATH%"
-  - where conda
-  - IF "%APPVEYOR_REPO_BRANCH%"=="nightly" (
-        conda install conda-build anaconda-client -n root
-    )
-  - IF "%APPVEYOR_REPO_BRANCH%"=="nightly" (
-        powershell "./ci/deploy_anaconda.ps1"
-    )
-
-
 deploy:
   description: ' '
   provider: GitHub
