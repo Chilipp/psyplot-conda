@@ -114,8 +114,10 @@ artifacts:
     name: installer
 
 after_test:
-  - IF "%APPVEYOR_REPO_BRANCH%"=="nightly" (
-        conda install conda-build anaconda-client;
+  - |
+    IF "%APPVEYOR_REPO_BRANCH%"=="nightly" (
+        SET PATH=%PSYPLOT_PYTHON%;%PSYPLOT_PYTHON%\\Scripts;%ORIGPATH%
+        conda install conda-build anaconda-client
         powershell "./ci/deploy_anaconda.ps1"
     )
 
