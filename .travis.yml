@@ -2,6 +2,7 @@ language: generic
 env:
   global:
     - secure: "phWqxuGUbL1waOeDo/Tr7h5AHP4DS6Gr5rnBBXy9SD8+VVgXRUbJmY2VR03JQaiYkToArLDzZt3KujxLStbWmCOvtSmSpLeJCPkTruKuZgaCJyeuqk67GD9BXuMqdiOy5EeiHQGIj/zIjxVpkoL4HRH+7I+3FSb1HCLp5lLFZqYmp9Vy7xbiY2IrON8hOnnzlQPlwtTm5XM0/X2X3zavPSDugYu4LcZaj3U8EAkLAg6KJDKED51eXyPFG8Kj+Knf7DXpTWCoQBjvwp4djfP6Q36rZt3oj8TgqW/fGvixvfptP0MEjVRsYK187kJOCnMb4hwwuJUMDj2hTHrFeKODlP18dKvoPB+cgrKsSntelUXjqMZFCVM1t8YobUmc9S6vgUzoZcVAyGYawawVi0lzFjucUdqxPVn2pqAWCK0MHxcOWH9iLAvl5zg8VLNY7SaGxrycaL/2/qoM2F9KLc16tlCbLOPJUWana4oB3dGn3nc58X1GVhxsluPsdpVlp46AjWbsVwEYhThg36qNJjAU1YU/iZ2sCOsIJGmnKGf7rUmbeM37X1gijiROfYE1YAT8jzdX7OOIa/IpHqkeNoH5cdd/5HSGwlaxoZndgjJJnJliwOheO6BgArvL3AokjoqVlOI8CaUEd+hk9JRFqFa6pEKZpcMhWbbcn10ecNveG98="
+    - secure: "hMVMSbsLOZUEd4u6g6Z42eSfDKiA3adRlKUTWHe/POxYOt58Cx6ZwgqQMORVjcytExxkra00Bx/IsV1uBL1mynwFLDOtvQQXv295o7Si64PU+u8rcS+9CceUJKB54JXYa4qvRdWbaO4Iz3yHnMCXod0/qnysOclLr7Izs/KRter+f7TZwzI7OQAQoD5cq8308dNPgM0YOvQwuMJBb2JSo23kuy5yoY+yp3MtytgvWXUJwzY65+mN63Ar1Mfp9LhZuLD2JnVQap6x8BMsG14Nb6J6NqY+Ka7Z5u98eOET5DcRvegriEEcweUnxmHuiHSoc2ENUEBN4zbwI6Tltwe0GQG5SkS4YSrVJQuqLUgMYOY+dAT5kG0zb74snRz3+x3Z9lQDP0p9J6T8joMmtvLGRiIX4nV9D7oBb+0HhLXZHzgc86EhbklqQT9IxEKNjwTDuuExKbjfRNmMa6FSw+P3VtGTiF6L9wdofcmd8DcsstUdUFk5gJNhMkUex73AEGPNLe0wjRn+3mFwg9mTXz3RVtdxQqcqmHj4529RyCSzIamIv8mfsZk/1ZYSOvZg72Ca24ABPBD5fJxmL0ebxkrpktYrX+trCJnK2c2hamOpkpmuigV6oElpSRG8uuest7eQPMwqZoCO4jHpmZPfF/8NiZ8i6gYJix6zzqH3DnL+kC4="
 matrix:
   include:
     - os: linux
@@ -16,6 +17,8 @@ install:
   # the installation process. This decreases the vulnerability
   - SWITCH_DRIVE_PW_SAVE=$SWITCH_DRIVE_PW
   - unset SWITCH_DRIVE_PW
+  - CONDA_TOKEN_SAVE=$CONDA_REPO_TOKEN
+  - unset CONDA_REPO_TOKEN
   # checkout submodules (but not recursively)
   - git submodule update --init
   # select the os name for the conda installer
@@ -28,6 +31,7 @@ install:
   - if [[ $TRAVIS_BRANCH == nightly ]]; then
         git submodule foreach 'git checkout dev';
         ./update_submodules.sh;
+        conda install anaconda-client;
     fi
   # We do this conditionally because it saves us some downloading if the
   # version is the same.
@@ -84,7 +88,12 @@ install:
   - "mkdir -p $CONSTRUCTOR_DIR || :"
   - mv $HOME/miniconda/pkgs/*.tar.bz2 $CONSTRUCTOR_DIR
   # export the pw to make it available for the deploy
-  - export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE
+  - if [[ $TRAVIS_TAG == "" ]]; then
+        export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE;
+    fi
+  - if [[ $TRAVIS_BRANCH == nightly ]]; then
+        export CONDA_REPO_TOKEN=$CONDA_TOKEN_SAVE;
+    fi
 
 before_script:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then
@@ -94,6 +103,13 @@ before_script:
     fi
 
 script:
+  # unset the global SWITCH_DRIVE_PW variable because it is not needed during
+  # the tests. This decreases the vulnerability
+  - SWITCH_DRIVE_PW_SAVE=$SWITCH_DRIVE_PW
+  - unset SWITCH_DRIVE_PW
+  - CONDA_TOKEN_SAVE=$CONDA_REPO_TOKEN
+  - unset CONDA_REPO_TOKEN
+  # run the script
   - source $HOME/miniconda/bin/activate root
   # construct the executable
   - constructor psyplot-conda
@@ -125,9 +141,17 @@ script:
   - py.test -v psy-maps/tests/test_plotters.py::FieldPlotterTest2D
   # run tests for psy-reg
   - py.test -v psy-reg -k DensityRegPlotterTest
+  # export the pw to make it available for the deploy
+  - if [[ $TRAVIS_TAG == "" ]]; then
+        export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE;
+    fi
+  - if [[ $TRAVIS_BRANCH == nightly ]]; then
+        export CONDA_REPO_TOKEN=$CONDA_TOKEN_SAVE;
+    fi
 
 before_deploy:
     - 'export FINAL_FILE="$(ls psyplot-conda-*-${OS_NAME}-*.sh) $(ls psyplot-conda-*-${OS_NAME}-*.pkg || :)"'
+    - 'export BUILDS=`conda build --output recipes/* --python $PYTHON_VERSION`'
 
 deploy:
   - provider: script
@@ -148,3 +172,8 @@ deploy:
     on:
       repo: Chilipp/psyplot-conda
       tags: true
+  - provider: script
+    script: ci/deploy_anaconda.sh
+    skip_cleanup: true
+    on:
+      branch: nightly
