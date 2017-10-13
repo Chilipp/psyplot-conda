@@ -31,7 +31,6 @@ install:
   - if [[ $TRAVIS_BRANCH == nightly ]]; then
         git submodule foreach 'git checkout dev';
         ./update_submodules.sh;
-        conda install anaconda-client;
     fi
   # We do this conditionally because it saves us some downloading if the
   # version is the same.
@@ -49,6 +48,9 @@ install:
   - conda install constructor conda-build
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
         conda install -c conda-forge pandoc;
+    fi
+  - if [[ $TRAVIS_BRANCH == nightly ]]; then
+        conda install anaconda-client;
     fi
   - source activate psyplot_conda
   # install the submodules
