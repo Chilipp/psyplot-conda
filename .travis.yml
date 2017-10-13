@@ -145,13 +145,15 @@ script:
         export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE;
     fi
   - if [[ $TRAVIS_BRANCH == nightly ]]; then
-        conda install conda-build anaconda-client;
         export CONDA_REPO_TOKEN=$CONDA_TOKEN_SAVE;
     fi
 
 before_deploy:
     - 'export FINAL_FILE="$(ls psyplot-conda-*-${OS_NAME}-*.sh) $(ls psyplot-conda-*-${OS_NAME}-*.pkg || :)"'
-    - 'export BUILDS=`conda build --output recipes/* --python $PYTHON_VERSION`'
+    - if [[ $TRAVIS_BRANCH == nightly ]]; then
+          conda install conda-build anaconda-client;
+          export BUILDS=`conda build --output recipes/* --python 3.6`;
+      fi
 
 deploy:
   - provider: script
