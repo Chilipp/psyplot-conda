@@ -169,17 +169,25 @@ if sys.platform.startswith('win'):
 if not args.no_build:
     spr.check_call(['conda', 'build', '--no-test'] + list(local_packages),
                    stdout=sys.stdout, stderr=sys.stderr)
-builds = spr.check_output(
-    ['conda', 'build', '--output'] + list(local_packages)).decode(
-            'utf-8').splitlines()
-for i, f in enumerate(builds[:]):
+if local_packages:
+    builds = spr.check_output(
+        ['conda', 'build', '--output'] + list(local_packages)).decode(
+                'utf-8').splitlines()
+
     try:
         os.makedirs('builds')
     except Exception:
         pass
-    builds[i] = osp.join('builds', osp.basename(f))
-    os.rename(f, builds[i])
-builds = list(map(file2html, builds))
+
+    shutil.copyfile(osp.join(osp.dirname(builds[0]), 'repodata.json.bz2'),
+                    osp.join('builds', 'repodata.json.bz2'))
+    for i, f in enumerate(map(str.strip, builds[:])):
+        builds[i] = osp.join('builds', osp.basename(f))
+        os.rename(f, builds[i])
+
+    builds = list(map(file2html, builds))
+else:
+    builds = []
 
 if sys.platform.startswith('win'):
     scripts_dir = osp.dirname(sys.executable)

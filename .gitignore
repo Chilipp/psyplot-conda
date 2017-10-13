@@ -76,6 +76,7 @@ recipes/*/meta.yaml
 psyplot-conda/
 psyplot-conda-*.sh
 psyplot-conda-*.exe
+builds/*
 *debug_psyplot.log*
 
 # osx app
