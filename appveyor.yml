@@ -76,8 +76,6 @@ install:
 build: false
 
 test_script:
-  - setlocal
-  - set CONDA_REPO_TOKEN=
   # construct the executable
   - constructor psyplot-conda
   # create executable without shortcut
@@ -111,14 +109,13 @@ test_script:
   - py.test -v psy-maps/tests/test_plotters.py::FieldPlotterTest2D
   # run tests for psy-reg
   - py.test -v psy-reg -k DensityRegPlotterTest
-  - endlocal
 artifacts:
   - path: '**\psyplot-conda-*-Windows-*.exe'
     name: installer
 
 after_test:
   - IF "%APPVEYOR_REPO_BRANCH%"=="nightly" (
-        conda install conda-build anaconda-client; 
+        conda install conda-build anaconda-client;
         powershell "./ci/deploy_anaconda.ps1"
     )
 
