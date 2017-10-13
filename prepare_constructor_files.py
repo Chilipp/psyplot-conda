@@ -169,16 +169,17 @@ if sys.platform.startswith('win'):
 if not args.no_build:
     spr.check_call(['conda', 'build', '--no-test'] + list(local_packages),
                    stdout=sys.stdout, stderr=sys.stderr)
-builds = [
-    file2html(s) for s in spr.check_output(
-        ['conda', 'build', '--output'] + list(local_packages)).decode(
-            'utf-8').splitlines()]
-for f in builds:
+builds = spr.check_output(
+    ['conda', 'build', '--output'] + list(local_packages)).decode(
+            'utf-8').splitlines()
+for i, f in enumerate(builds[:]):
     try:
         os.makedirs('builds')
     except Exception:
         pass
-    os.rename(f, osp.join('builds', osp.basename(f)))
+    builds[i] = osp.join('builds', osp.basename(f))
+    os.rename(f, builds[i])
+builds = list(map(file2html, builds))
 
 if sys.platform.startswith('win'):
     scripts_dir = osp.dirname(sys.executable)
