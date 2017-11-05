@@ -11,15 +11,19 @@ if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
     $PREFIX/bin/python -c "import shapefile" || $PREFIX/bin/conda install $PREFIX/pkgs/pyshp-*.tar.bz2
     $PREFIX/bin/python -c "import toolz" || $PREFIX/bin/conda install $PREFIX/pkgs/toolz-*.tar.bz2
     $PREFIX/bin/python -c "import dask" || $PREFIX/bin/conda install $PREFIX/pkgs/dask-*.tar.bz2
+    $PREFIX/bin/python -c "import pytz" || $PREFIX/bin/conda install $PREFIX/pkgs/pytz-*.tar.bz2
+    $PREFIX/bin/python -c "import jupyter_core" || $PREFIX/bin/conda install $PREFIX/pkgs/jupyter_core-*.tar.bz2
 else
     $PREFIX/bin/python -c "import shapefile" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/pyshp-*.tar.bz2 &> /dev/null
     $PREFIX/bin/python -c "import toolz" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/toolz-*.tar.bz2 &> /dev/null
     $PREFIX/bin/python -c "import dask" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/dask-*.tar.bz2 &> /dev/null
+    $PREFIX/bin/python -c "import pytz" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/pytz-*.tar.bz2 &> /dev/null
+    $PREFIX/bin/python -c "import jupyter_core" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/jupyter_core-*.tar.bz2 &> /dev/null
 fi
 if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
     echo "Testing import"
 fi
-$PREFIX/bin/python -c "import shapefile, toolz, dask, cartopy"
+$PREFIX/bin/python -c "import shapefile, toolz, dask, cartopy, pytz, jupyter_core"
 # END pyshp PATCH
 
 # script that is called after the installation of psyplot_conda to ask whether
