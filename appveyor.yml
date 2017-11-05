@@ -29,7 +29,7 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
   - conda env create -f environment_win.yml
-  - conda install constructor conda-build
+  - conda install 'constructor<1.9' conda-build
   # HACK: Temporary fix for libconda
   - git clone https://github.com/Chilipp/libconda
   - cd libconda && python setup.py install && cd ..
