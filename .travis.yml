@@ -45,7 +45,7 @@ install:
   - conda info -a
   # update conda
   - conda env create -f environment.yml
-  - conda install constructor conda-build
+  - conda install constructor<=1.9 conda-build
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
         conda install -c conda-forge pandoc;
     fi
