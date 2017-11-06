@@ -7,6 +7,8 @@ channels: &id1
     - http://repo.continuum.io/pkgs/free
     - https://conda.anaconda.org/chilipp
 
+ignore_duplicate_files: true
+
 conda_default_channels: *id1
 
 specs:
