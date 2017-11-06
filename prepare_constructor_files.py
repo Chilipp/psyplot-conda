@@ -159,35 +159,30 @@ if sys.platform.startswith('win'):
     with open(osp.join(build_dir, post_file)) as f:
         post_script = f.read()
     with open(osp.join(build_dir, post_file), 'w') as f:
-        for pkg in ['pyshp', 'alabaster', 'toolz', 'dask', 'dask-core']:
+        for pkg in ['pyshp', 'alabaster', 'toolz', 'dask', 'dask-core',
+                    'pytz', 'jupyter_core']:
             post_script = post_script.replace(
                 pkg.replace('-', '').upper() + 'VERSION',
                 '-'.join(all_versions[pkg]))
         f.write(post_script)
 
 # for packages in the psyplot framework, we use our own local builds
-if not args.no_build:
+if not args.no_build and local_packages:
     spr.check_call(['conda', 'build', '--no-test'] + list(local_packages),
                    stdout=sys.stdout, stderr=sys.stderr)
 if local_packages:
+
     builds = spr.check_output(
         ['conda', 'build', '--output'] + list(local_packages)).decode(
                 'utf-8').splitlines()
 
-    try:
-        os.makedirs('builds')
-    except Exception:
-        pass
+    for fname in map(osp.basename, builds):
+        construct['specs'].append(
+            ' '.join(fname.replace('.tar.bz2', '').rsplit('-', 2)))
 
-    shutil.copyfile(osp.join(osp.dirname(builds[0]), 'repodata.json.bz2'),
-                    osp.join('builds', 'repodata.json.bz2'))
-    for i, f in enumerate(map(str.strip, builds[:])):
-        builds[i] = osp.join('builds', osp.basename(f))
-        os.rename(f, builds[i])
+    conda_bld_dir = file2html(osp.dirname(osp.dirname(builds[0])))
 
-    builds = list(map(file2html, builds))
-else:
-    builds = []
+    construct['channels'] = [conda_bld_dir] + construct['channels']
 
 if sys.platform.startswith('win'):
     scripts_dir = osp.dirname(sys.executable)
@@ -196,9 +191,6 @@ if sys.platform.startswith('win'):
     if mkl_file is not None:
         builds.append(mkl_file)
 
-
-if builds:
-    construct['packages'] = builds
 
 with open(osp.join(build_dir, 'construct.yaml'), 'w') as f:
     yaml.dump(construct, f, default_flow_style=False)
