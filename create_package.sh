@@ -22,7 +22,7 @@ constructor ../psyplot-conda
 INSTALLER=`ls psyplot-conda-*MacOSX-*.sh`
 
 # extract the app
-tar xjvf ../builds/psyplot-gui-*.tar.bz2 psyplotapp
+tar xjvf $HOME/miniconda/conda-bld/osx-64/psyplot-gui-*.tar.bz2 psyplotapp
 mv psyplotapp Psyplot.app
 
 # use correct file size
