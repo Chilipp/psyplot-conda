@@ -6,4 +6,4 @@ call "%PREFIX%\Scripts\conda.exe" install -y "%PREFIX%\pkgs\toolz-TOOLZVERSION.t
 call "%PREFIX%\Scripts\conda.exe" install -y "%PREFIX%\pkgs\dask-core-DASKCOREVERSION.tar.bz2" -n root || ECHO ""
 call "%PREFIX%\Scripts\conda.exe" install -y "%PREFIX%\pkgs\dask-DASKVERSION.tar.bz2" -n root || ECHO ""
 call "%PREFIX%\Scripts\conda.exe" install -y "%PREFIX%\pkgs\pytz-PYTZVERSION.tar.bz2" -n root || ECHO ""
-call "%PREFIX%\Scripts\conda.exe" install -y "%PREFIX%\pkgs\jupyter_core-JUPYTERCOREVERSION.tar.bz2" -n root || ECHO ""
+call "%PREFIX%\Scripts\conda.exe" install -y "%PREFIX%\pkgs\jupyter_core-JUPYTER_COREVERSION.tar.bz2" -n root || ECHO ""
