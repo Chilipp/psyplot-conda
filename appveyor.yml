@@ -11,9 +11,6 @@ environment:
 os: unstable
 install:
   - "SET ORIGPATH=%PATH%"
-  - IF "%APPVEYOR_REPO_BRANCH%"=="nightly" (
-        git submodule foreach 'git checkout dev && git pull origin dev'
-    )
   # checkout submodules (but not recursively)
   - git submodule update --init
   # Install miniconda Python
