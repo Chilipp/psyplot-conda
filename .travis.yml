@@ -11,7 +11,7 @@ git:
     submodules: false
 before_install:
   # Remove homebrew geos
-  - "brew uninstall geos || :"
+  - "brew uninstall --ignore-dependencies geos || :"
 install:
   # unset the global SWITCH_DRIVE_PW variable because it is not needed during
   # the installation process. This decreases the vulnerability
