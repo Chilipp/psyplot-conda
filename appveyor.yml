@@ -30,6 +30,11 @@ install:
   - conda info -a
   - conda env create -f environment_win.yml
   - conda install constructor conda-build
+  # HACK: Install constructor from source to make sure we solve
+  # https://github.com/conda/constructor/pull/140
+  - git clone https://github.com/conda/constructor.git &&
+    cd constructor && python setup.py install && cd ../
+  - ps: "Remove-Item -Recurse -Force constructor"
   - activate psyplot_conda
   # install the submodules
   - cd psyplot && python setup.py install && cd ../
