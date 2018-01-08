@@ -4,6 +4,8 @@ if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
     set -x
 fi
 
+source $PREFIX/bin/activate root
+
 # pyshp PATCH
 # pkg_resources has difficulties in finding pyshp and various others. Therefore we
 # reinstall them to be save
@@ -70,3 +72,5 @@ For this change to become active, you have to open a new terminal.
 alias psyplot=\"$PREFIX/bin/psyplot\"" >> $BASH_RC
     fi
 fi
+
+source deactivate

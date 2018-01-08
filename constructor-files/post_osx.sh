@@ -4,6 +4,8 @@ if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
     set -x
 fi
 
+source $PREFIX/bin/activate root
+
 # pyshp PATCH
 # pkg_resources has difficulties in finding pyshp and various others. Therefore we
 # reinstall them to be save
@@ -98,5 +100,7 @@ any path: the exact location
         ln -sf $PREFIX/Psyplot.app $ans
     fi
 fi
+
+source deactivate
 
 exit 0
