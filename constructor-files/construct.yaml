@@ -5,6 +5,7 @@ channels: &id1
     - https://conda.anaconda.org/conda-forge
     - http://repo.continuum.io/pkgs/main
     - http://repo.continuum.io/pkgs/free
+    - http://repo.continuum.io/pkgs/msys2  [win]
     - https://conda.anaconda.org/chilipp
 
 ignore_duplicate_files: true
