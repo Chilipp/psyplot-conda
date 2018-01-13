@@ -9,9 +9,12 @@ fi
 # the architecture that have the `noarch` option), see
 # https://github.com/conda/constructor/issues/86
 # Therefore we install them manually using conda
+TOTEST="shapefile, toolz, dask, cartopy, pytz, jupyter_core"
+TOINSTALL="dask-core pytz toolz cloudpickle pyshp jupyter_core"
+$PREFIX/bin/python -c "import $TOTEST" || \
 $PREFIX/bin/conda install --force --no-deps --offline -y --use-local -p $PREFIX \
-    dask-core pytz toolz cloudpickle pyshp jupyter_core
-$PREFIX/bin/python -c "import shapefile, toolz, dask, cartopy, pytz, jupyter_core"
+    $TOINSTALL
+$PREFIX/bin/python -c "import $TOTEST"
 # END noarch PATCH
 
 # script that is called after the installation of psyplot_conda to ask whether
