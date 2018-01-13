@@ -70,6 +70,7 @@ all_versions['idna'] = root_versions['idna']
 if sys.platform.startswith('win'):
     # install console_shortcut to get Anaconda Prompt
     all_versions['console_shortcut'] = root_versions['console_shortcut']
+    all_versions['menuinst'] = root_versions['menuinst']
 
 
 def get_version(mod, d=all_versions):
