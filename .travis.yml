@@ -43,7 +43,7 @@ install:
   # install pandoc for create_package.sh
   - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
       conda install -c conda-forge pandoc;
-  fi
+    fi
   # update conda
   - conda update -q conda
   - conda config --set report_errors false
