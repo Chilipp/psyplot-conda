@@ -1,9 +1,8 @@
-:: Install pyshp, alabaster and dask if they cannot be imported
-call "%PREFIX%\python.exe" -c "import shapefile, alabaster, dask, pytz, jupyter_core, toolz" && EXIT /B 0 || ECHO "Installing pyshp, alabaster and more"
-call "%PREFIX%\Scripts\conda.exe" install -y "%PREFIX%\pkgs\alabaster-ALABASTERVERSION.tar.bz2" -n root || ECHO ""
-call "%PREFIX%\Scripts\conda.exe" install -y "%PREFIX%\pkgs\pyshp-PYSHPVERSION.tar.bz2" -n root || ECHO ""
-call "%PREFIX%\Scripts\conda.exe" install -y "%PREFIX%\pkgs\toolz-TOOLZVERSION.tar.bz2" -n root || ECHO ""
-call "%PREFIX%\Scripts\conda.exe" install -y "%PREFIX%\pkgs\dask-core-DASKCOREVERSION.tar.bz2" -n root || ECHO ""
-call "%PREFIX%\Scripts\conda.exe" install -y "%PREFIX%\pkgs\dask-DASKVERSION.tar.bz2" -n root || ECHO ""
-call "%PREFIX%\Scripts\conda.exe" install -y "%PREFIX%\pkgs\pytz-PYTZVERSION.tar.bz2" -n root || ECHO ""
-call "%PREFIX%\Scripts\conda.exe" install -y "%PREFIX%\pkgs\jupyter_core-JUPYTER_COREVERSION.tar.bz2" -n root || ECHO ""
+:: noarch PATCH
+:: constructor cannot install noarch packages (i.e. packages independent of
+:: the architecture that have the `noarch` option), see
+:: https://github.com/conda/constructor/issues/86
+:: Therefore we install them manually using conda
+call "%PREFIX%\Scripts\conda.exe" install --force --no-deps --offline -y --use-local -p %PREFIX%^
+    dask-core pytz toolz cloudpickle pyshp jupyter_core
+call "%PREFIX%"/bin/python -c "import shapefile, toolz, dask, pytz, jupyter_core, cloudpickle"

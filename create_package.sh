@@ -10,9 +10,9 @@ sed -i '' "s/0.01/$PKG_VERSION/" distribution.xml
 chmod +x scripts/postinstall
 
 # No need to keep the packages
-# however we do need them if we have to reinstall pyshp. Therefore we delete
-# them after the pyshp patch
-sed -i '' '/END pyshp PATCH/ a\
+# however we do need them if we have to reinstall noarch packages. Therefore we
+# delete them after the noarch patch
+sed -i '' '/END noarch PATCH/ a\
 rm "$PREFIX"/pkgs/*.tar.bz2 \
 ' ../psyplot-conda/post_osx.sh
 

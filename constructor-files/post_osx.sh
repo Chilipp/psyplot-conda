@@ -4,29 +4,15 @@ if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
     set -x
 fi
 
-source $PREFIX/bin/activate root
-
-# pyshp PATCH
-# pkg_resources has difficulties in finding pyshp and various others. Therefore we
-# reinstall them to be save
-if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
-    $PREFIX/bin/python -c "import shapefile" || $PREFIX/bin/conda install $PREFIX/pkgs/pyshp-*.tar.bz2
-    $PREFIX/bin/python -c "import toolz" || $PREFIX/bin/conda install $PREFIX/pkgs/toolz-*.tar.bz2
-    $PREFIX/bin/python -c "import dask" || $PREFIX/bin/conda install $PREFIX/pkgs/dask-*.tar.bz2
-    $PREFIX/bin/python -c "import pytz" || $PREFIX/bin/conda install $PREFIX/pkgs/pytz-*.tar.bz2
-    $PREFIX/bin/python -c "import jupyter_core" || $PREFIX/bin/conda install $PREFIX/pkgs/jupyter_core-*.tar.bz2
-else
-    $PREFIX/bin/python -c "import shapefile" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/pyshp-*.tar.bz2 &> /dev/null
-    $PREFIX/bin/python -c "import toolz" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/toolz-*.tar.bz2 &> /dev/null
-    $PREFIX/bin/python -c "import dask" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/dask-*.tar.bz2 &> /dev/null
-    $PREFIX/bin/python -c "import pytz" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/pytz-*.tar.bz2 &> /dev/null
-    $PREFIX/bin/python -c "import jupyter_core" &> /dev/null || $PREFIX/bin/conda install $PREFIX/pkgs/jupyter_core-*.tar.bz2 &> /dev/null
-fi
-if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
-    echo "Testing import"
-fi
+# noarch PATCH
+# constructor cannot install noarch packages (i.e. packages independent of
+# the architecture that have the `noarch` option), see
+# https://github.com/conda/constructor/issues/86
+# Therefore we install them manually using conda
+$PREFIX/bin/conda install --force --no-deps --offline -y --use-local -p $PREFIX \
+    dask-core pytz toolz cloudpickle pyshp jupyter_core
 $PREFIX/bin/python -c "import shapefile, toolz, dask, cartopy, pytz, jupyter_core"
-# END pyshp PATCH
+# END noarch PATCH
 
 # script that is called after the installation of psyplot_conda to ask whether
 # an alias for psyplot shall be created and an app shall be linked

@@ -154,18 +154,6 @@ else:
 if osp.exists(osp.join(build_dir, post_file)):
     construct['post_install'] = post_file
 
-# make sure we use the correct mkl version in post_win.bat
-if sys.platform.startswith('win'):
-    with open(osp.join(build_dir, post_file)) as f:
-        post_script = f.read()
-    with open(osp.join(build_dir, post_file), 'w') as f:
-        for pkg in ['pyshp', 'alabaster', 'toolz', 'dask', 'dask-core',
-                    'pytz', 'jupyter_core']:
-            post_script = post_script.replace(
-                pkg.replace('-', '').upper() + 'VERSION',
-                '-'.join(all_versions[pkg]))
-        f.write(post_script)
-
 # for packages in the psyplot framework, we use our own local builds
 if not args.no_build and local_packages:
     spr.check_call(['conda', 'build', '--no-test'] + list(local_packages),
@@ -183,13 +171,6 @@ if local_packages:
     conda_bld_dir = file2html(osp.dirname(osp.dirname(builds[0])))
 
     construct['channels'] = [conda_bld_dir] + construct['channels']
-
-if sys.platform.startswith('win'):
-    scripts_dir = osp.dirname(sys.executable)
-    mkl_file = next(iter(
-        glob.glob(osp.join(scripts_dir, '..', 'pkgs', 'mkl-*.tar.bz2'))), None)
-    if mkl_file is not None:
-        builds.append(mkl_file)
 
 
 with open(osp.join(build_dir, 'construct.yaml'), 'w') as f:
