@@ -11,10 +11,20 @@ fi
 # Therefore we install them manually using conda
 TOTEST="shapefile, toolz, dask, cartopy, pytz, jupyter_core"
 TOINSTALL="dask-core pytz toolz cloudpickle pyshp jupyter_core"
-$PREFIX/bin/python -c "import $TOTEST" || \
-$PREFIX/bin/conda install --force --no-deps --offline -y --use-local -p $PREFIX \
-    $TOINSTALL
-$PREFIX/bin/python -c "import $TOTEST"
+if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
+    $PREFIX/bin/python -c "import $TOTEST" || \
+        $PREFIX/bin/conda install --force --no-deps --offline -y --use-local -p $PREFIX \
+        $TOINSTALL
+    echo "Testing import"
+    $PREFIX/bin/python -c "import $TOTEST" || \
+        echo "Failed to import ${TOTEST}! Conda environment might be broken!"
+else
+    $PREFIX/bin/python -c "import $TOTEST" &> /dev/null || \
+        $PREFIX/bin/conda install --force --no-deps --offline -y --use-local -p $PREFIX \
+        $TOINSTALL
+    $PREFIX/bin/python -c "import $TOTEST" || \
+        echo "Failed to import ${TOTEST}! Conda environment might be broken!"
+fi
 # END noarch PATCH
 
 # script that is called after the installation of psyplot_conda to ask whether
