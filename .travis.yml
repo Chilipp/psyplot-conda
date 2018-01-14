@@ -64,7 +64,7 @@ install:
     cd psyplot-gui && python setup.py install && cd ../ &&
     cd psy-simple && python setup.py install && cd ../ &&
     cd psy-maps && python setup.py install && cd ../ &&
-    cd psy-reg && python setup.py install && cd ../ &&
+    cd psy-reg && python setup.py install && cd ../
   # prepare the conda recipes
   - python recipe_from_setup.py psyplot recipes &&
     python recipe_from_setup.py psyplot-gui recipes &&
