@@ -59,6 +59,8 @@ install:
     cd constructor && python setup.py install && cd ../ &&
     rm -rf constructor
   - source activate psyplot_conda
+  # install noarch packages from the defaults channel
+  - conda install --force -c defaults dask-core pytz toolz cloudpickle pyshp jupyter_core
   # install the submodules
   - cd psyplot && python setup.py install && cd ../ &&
     cd psyplot-gui && python setup.py install && cd ../ &&
