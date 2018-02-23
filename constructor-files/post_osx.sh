@@ -100,6 +100,4 @@ any path: the exact location
     fi
 fi
 
-source deactivate
-
 exit 0

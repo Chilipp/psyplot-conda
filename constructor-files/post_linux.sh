@@ -71,5 +71,3 @@ For this change to become active, you have to open a new terminal.
 alias psyplot=\"$PREFIX/bin/psyplot\"" >> $BASH_RC
     fi
 fi
-
-source deactivate
