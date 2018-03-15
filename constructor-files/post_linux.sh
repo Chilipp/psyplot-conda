@@ -9,8 +9,8 @@ fi
 # the architecture that have the `noarch` option), see
 # https://github.com/conda/constructor/issues/86
 # Therefore we install them manually using conda
-TOTEST="shapefile, toolz, dask, cartopy, pytz, jupyter_core"
-TOINSTALL="dask-core pytz toolz cloudpickle pyshp jupyter_core"
+TOTEST="shapefile, toolz, dask, cartopy, pytz, jupyter_core, sphinx"
+TOINSTALL="dask-core pytz toolz cloudpickle pyshp jupyter_core, sphinx"
 if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
     $PREFIX/bin/python -c "import $TOTEST" || \
         $PREFIX/bin/conda install --force --no-deps --offline -y --use-local -p $PREFIX \
