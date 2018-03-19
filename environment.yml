@@ -30,4 +30,5 @@ dependencies:
     - openblas
     - bottleneck
     - libgfortran
-
+    - sqlite
+    - jupyter
