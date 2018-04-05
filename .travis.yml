@@ -53,11 +53,6 @@ install:
   - conda install constructor conda-build
   # download the packages that will be used in the installer
   - conda env create -f environment.yml
-  # HACK: Install constructor from source to make sure we solve
-  # https://github.com/conda/constructor/pull/140
-  - git clone https://github.com/conda/constructor.git &&
-    cd constructor && python setup.py install && cd ../ &&
-    rm -rf constructor
   - conda activate psyplot_conda
   # install noarch packages from the defaults channel
   - conda install --no-deps --force -c defaults dask-core pytz toolz cloudpickle
