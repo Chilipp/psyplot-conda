@@ -138,7 +138,9 @@ script:
   # run tests for psyplot-gui
   - py.test -v psyplot-gui -k "UrlHelpTest or Console"
   # run (some) tests for psy-simple
-  - py.test -v psy-simple psy-simple/tests/test_plotters.py -k "LinePlotterTest2D or Simple2DPlotterTest2D"
+  - py.test -v psy-simple psy-simple/tests/test_plotters.py
+    -k "LinePlotterTest2D or Simple2DPlotterTest2D"
+    --ignore=psy-simple/tests/widgets
   # run (some) tests for psy-maps
   - py.test -v psy-maps/tests/test_plotters.py::FieldPlotterTest2D
   # run tests for psy-reg
