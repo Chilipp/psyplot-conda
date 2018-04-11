@@ -139,3 +139,17 @@ open a command window (``cmd``) and type ``psyplot``.
 .. _psy-reg: https://psyplot.readthedocs.io/projects/psy-reg
 .. _constructor: https://github.com/conda/constructor
 .. _conda-forge: http://conda-forge.github.io/
+
+Copyright
+---------
+Copyright (C) 2016-2018 Philipp S. Sommer
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
