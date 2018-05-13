@@ -54,9 +54,6 @@ install:
   # download the packages that will be used in the installer
   - conda env create -f environment.yml
   - conda activate psyplot_conda
-  # install noarch packages from the defaults channel
-  - conda install --no-deps --force -c defaults dask-core pytz toolz cloudpickle
-    pyshp jupyter_core python-dateutil packaging backcall decorator
   # install the submodules
   - cd psyplot && python setup.py install && cd ../ &&
     cd psyplot-gui && python setup.py install && cd ../ &&

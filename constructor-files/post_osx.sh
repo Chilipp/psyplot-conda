@@ -5,25 +5,24 @@ if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
 fi
 
 # noarch PATCH
-# constructor cannot install noarch packages (i.e. packages independent of
-# the architecture that have the `noarch` option), see
-# https://github.com/conda/constructor/issues/86
-# Therefore we install them manually using conda
-TOTEST="shapefile, toolz, dask, cartopy, pytz, jupyter_core, sphinx"
-TOINSTALL="dask-core pytz toolz cloudpickle pyshp jupyter_core, sphinx"
-if [[ ${DEBUG_PSYPLOT_INSTALLATION} != "" ]]; then
-    $PREFIX/bin/python -c "import $TOTEST" || \
-        $PREFIX/bin/conda install --force --no-deps --offline -y --use-local -p $PREFIX \
-        $TOINSTALL
-    echo "Testing import"
-    $PREFIX/bin/python -c "import $TOTEST" || \
-        echo "Failed to import ${TOTEST}! Conda environment might be broken!"
-else
-    $PREFIX/bin/python -c "import $TOTEST" &> /dev/null || \
-        $PREFIX/bin/conda install --force --no-deps --offline -y --use-local -p $PREFIX \
-        $TOINSTALL
-    $PREFIX/bin/python -c "import $TOTEST" || \
-        echo "Failed to import ${TOTEST}! Conda environment might be broken!"
+# Explicitly move noarch packages into `lib/python?.?/site-packages` as a
+# workaround to [this issue][i86] with lack of `constructor` support for
+# `noarch` packages.
+#
+# [i86]: https://github.com/conda/constructor/issues/86#issuecomment-330863531
+if [[ -e site-packages ]]; then
+    for DIR in site-packages/*; do
+        if [[ -d $DIR ]]; then
+            mv $DIR $PREFIX/lib/python?.?/site-packages
+        else
+            filename=$(basename -- "$DIR")
+            extension="${filename##*.}"
+            if [[ $extension == 'py' ]]; then
+                mv $DIR $PREFIX/lib/python?.?/site-packages
+            fi
+        fi
+    done
+    rm -r site-packages
 fi
 # END noarch PATCH
 
