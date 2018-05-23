@@ -18,7 +18,7 @@ Conda installers for psyplot
     :alt: Travis
     :target: https://travis-ci.org/Chilipp/psyplot-conda
 
-.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/3jk6ea1n4a4dl6vk/branch/master?svg=true
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/t0890y0q48pnxovu?svg=true
     :alt: AppVeyor
     :target: https://ci.appveyor.com/project/Chilipp/psyplot-conda/branch/master
 
