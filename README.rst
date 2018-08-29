@@ -1,7 +1,7 @@
 Conda installers for psyplot
 ============================
 
-..image:: http://unmaintained.tech/badge.svg)](http://unmaintained.tech/
+.. image:: http://unmaintained.tech/badge.svg)](http://unmaintained.tech/
     :alt: No Maintenance Intended
 
 This module is not maintained. Please rather download a miniconda_ installer
