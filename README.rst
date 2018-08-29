@@ -12,6 +12,8 @@ and install the packages via::
 
 or see the `psyplot installation instructions <http://psyplot.readthedocs.io/en/latest/installing.html>`__.
 
+.. _miniconda: https://conda.io/miniconda.html
+
 .. start-badges
 
 .. list-table::
