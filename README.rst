@@ -1,6 +1,16 @@
 Conda installers for psyplot
 ============================
 
+..image:: http://unmaintained.tech/badge.svg)](http://unmaintained.tech/
+    :alt: No Maintenance Intended
+
+This module is not maintained. Please rather download a miniconda_ installer
+and install the packages via::
+
+    conda install -c conda-forge psy-maps psyplot-gui psy-reg
+
+or see the `psyplot installation instructions <http://psyplot.readthedocs.io/en/latest/installing.html>`__.
+
 .. start-badges
 
 .. list-table::
