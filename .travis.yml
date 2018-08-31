@@ -13,9 +13,7 @@ before_install:
   # Remove homebrew geos
   - "brew uninstall --ignore-dependencies geos || :"
 install:
-  # unset the global SWITCH_DRIVE_PW variable because it is not needed during
-  # the installation process. This decreases the vulnerability
-  - SWITCH_DRIVE_PW_SAVE=$SWITCH_DRIVE_PW
+  # unset the global SWITCH_DRIVE_PW variable because it is not needed
   - unset SWITCH_DRIVE_PW
   - CONDA_TOKEN_SAVE=$CONDA_REPO_TOKEN
   - unset CONDA_REPO_TOKEN
@@ -84,16 +82,16 @@ install:
   # build the receipts and prepare the constructor files
   - python prepare_constructor_files.py recipes/* $ARGS -n psyplot_conda
   # deactivate conda environment and delete miniconda
-  - conda deactivate
-  - cat psyplot-conda/construct.yaml
+  # - conda deactivate
+  # - cat psyplot-conda/construct.yaml
   # move already downloaded packages to the constructor directory
-  - CONSTRUCTOR_DIR=$HOME/.conda/constructor/$TRAVIS_OS_NAME-64
-  - "mkdir -p $CONSTRUCTOR_DIR || :"
-  - mv $HOME/miniconda/pkgs/*.tar.bz2 $CONSTRUCTOR_DIR
+  # - CONSTRUCTOR_DIR=$HOME/.conda/constructor/$TRAVIS_OS_NAME-64
+  # - "mkdir -p $CONSTRUCTOR_DIR || :"
+  # - mv $HOME/miniconda/pkgs/*.tar.bz2 $CONSTRUCTOR_DIR
   # export the pw to make it available for the deploy
-  - if [[ $TRAVIS_TAG == "" ]]; then
-        export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE;
-    fi
+  # - if [[ $TRAVIS_TAG == "" ]]; then
+  #       export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE;
+  #   fi
   - if [[ $TRAVIS_BRANCH == nightly ]]; then
         export CONDA_REPO_TOKEN=$CONDA_TOKEN_SAVE;
     fi
@@ -108,23 +106,23 @@ before_script:
 script:
   # unset the global SWITCH_DRIVE_PW variable because it is not needed during
   # the tests. This decreases the vulnerability
-  - SWITCH_DRIVE_PW_SAVE=$SWITCH_DRIVE_PW
-  - unset SWITCH_DRIVE_PW
+  # - SWITCH_DRIVE_PW_SAVE=$SWITCH_DRIVE_PW
+  # - unset SWITCH_DRIVE_PW
   - CONDA_TOKEN_SAVE=$CONDA_REPO_TOKEN
   - unset CONDA_REPO_TOKEN
   # construct the executable
-  - constructor psyplot-conda
-  - conda deactivate
-  # install the new file
-  - DEBUG_PSYPLOT_INSTALLATION=1 NO_PSYPLOT_ALIAS=1 NO_PSYPLOT_APP=1 bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
-  # create the app
-  - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
-        conda activate base &&
-        bash create_package.sh &&
-        conda deactivate;
-    fi
+  # - constructor psyplot-conda
+  # - conda deactivate
+  # # install the new file
+  # - DEBUG_PSYPLOT_INSTALLATION=1 NO_PSYPLOT_ALIAS=1 NO_PSYPLOT_APP=1 bash psyplot-conda-*-"${OS_NAME}"-*.sh -p $HOME/psyplot-conda -b
+  # # create the app
+  # - if [[ $TRAVIS_OS_NAME == "osx" ]]; then
+  #       conda activate base &&
+  #       bash create_package.sh &&
+  #       conda deactivate;
+  #   fi
   # export the new path and remove current miniconda installation
-  - unset conda && . $HOME/psyplot-conda/etc/profile.d/conda.sh && conda activate base && hash -r
+  # - unset conda && . $HOME/psyplot-conda/etc/profile.d/conda.sh && conda activate base && hash -r
   # install pytest
   - pip install pytest
   # try to import some libraries for test
@@ -143,39 +141,39 @@ script:
   # run tests for psy-reg
   - py.test -v psy-reg -k DensityRegPlotterTest
   # export the pw to make it available for the deploy
-  - if [[ $TRAVIS_TAG == "" ]]; then
-        export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE;
-    fi
+  # - if [[ $TRAVIS_TAG == "" ]]; then
+  #       export SWITCH_DRIVE_PW=$SWITCH_DRIVE_PW_SAVE;
+  #   fi
   - if [[ $TRAVIS_BRANCH == nightly ]]; then
         export CONDA_REPO_TOKEN=$CONDA_TOKEN_SAVE;
     fi
 
 before_deploy:
-    - 'export FINAL_FILE="$(ls psyplot-conda-*-${OS_NAME}-*.sh) $(ls psyplot-conda-*-${OS_NAME}-*.pkg || :)"'
+    # - 'export FINAL_FILE="$(ls psyplot-conda-*-${OS_NAME}-*.sh) $(ls psyplot-conda-*-${OS_NAME}-*.pkg || :)"'
     - if [[ $TRAVIS_BRANCH == nightly ]]; then
           conda install conda-build anaconda-client;
           export BUILDS="$(ls $HOME/miniconda/conda-bld/${TRAVIS_OS_NAME}-64/*.tar.bz2)";
       fi
 
 deploy:
-  - provider: script
-    script: ci/deploy_nightly.sh "philipp.sommer@unil.ch:$SWITCH_DRIVE_PW" $FINAL_FILE
-    skip_cleanup: true
-    on:
-      all_branches: true
-      repo: Chilipp/psyplot-conda
-      # do not deploy releases
-      condition: '$TRAVIS_TAG == ""'
-  - provider: releases
-    api_key:
-      secure: m/ttzXxgMNrjP+MkK+HeeCPdiAEfB+TJRvS5Sqxhpokxud4ji1cUUIB2bpWmD7ujju9w1blfxvqR1nt1CET79FKbDmb/He0JiXwKQyQ007Hzm9stpp1Kt+OXoSrfIzeAqmdhlqkrXdGw076FcVHGw7E5GAueAroGOkH0xw7/QJWGo7bOkzE6SoNTGZ1EV1zlsR3HnPP3679AEmIA6iz9aIsy8dGbq0Tb4TMFP+ddCGzMxhCCO1dcgf9+zBw6dl/sZ1NSkiT1OR428sqKVAG8CM7ulL5xcbqtVjVU2SGCQ5TP7V7bx40RSr+KgS/6L7qXgabWxY26q5LhKi4che5Evg+ki2FP28BzLwwRzdrMErwrd/LTwfoLPPFfJ90+YJ3+FOSDz+V6jweUkQUA7+QNYMUixuypPBiwQbW8XPHxk4Z7poTTUHiE4tqO/VpauAa8T3XGrap18cDrxw8bEqvYUjxUbojy92UyhXntm0iqWBfubLAgoWYZ0PikVxxW6E73wf9suEnQkIUMIDfRAdDYHhQDeWkANt7siZYGDx0zf8iBTkTGrdV6uTx+G9+LxzoSoO5oXyCQD30m9/a6dqftTdkCk5i7i2Xr+EpLHzKK/jG2rR+zmDT5dZKEAbVyK0FcxHHB4+r/8VKZP7C5MhqD11Irc2Xr+9iB/lQTwvmDicc=
-    file: "psyplot-conda-*-${OS_NAME}-*.*"
-    file_glob: true
-    overwrite: true
-    skip_cleanup: true
-    on:
-      repo: Chilipp/psyplot-conda
-      tags: true
+  # - provider: script
+  #   script: ci/deploy_nightly.sh "philipp.sommer@unil.ch:$SWITCH_DRIVE_PW" $FINAL_FILE
+  #   skip_cleanup: true
+  #   on:
+  #     all_branches: true
+  #     repo: Chilipp/psyplot-conda
+  #     # do not deploy releases
+  #     condition: '$TRAVIS_TAG == ""'
+  # - provider: releases
+  #   api_key:
+  #     secure: m/ttzXxgMNrjP+MkK+HeeCPdiAEfB+TJRvS5Sqxhpokxud4ji1cUUIB2bpWmD7ujju9w1blfxvqR1nt1CET79FKbDmb/He0JiXwKQyQ007Hzm9stpp1Kt+OXoSrfIzeAqmdhlqkrXdGw076FcVHGw7E5GAueAroGOkH0xw7/QJWGo7bOkzE6SoNTGZ1EV1zlsR3HnPP3679AEmIA6iz9aIsy8dGbq0Tb4TMFP+ddCGzMxhCCO1dcgf9+zBw6dl/sZ1NSkiT1OR428sqKVAG8CM7ulL5xcbqtVjVU2SGCQ5TP7V7bx40RSr+KgS/6L7qXgabWxY26q5LhKi4che5Evg+ki2FP28BzLwwRzdrMErwrd/LTwfoLPPFfJ90+YJ3+FOSDz+V6jweUkQUA7+QNYMUixuypPBiwQbW8XPHxk4Z7poTTUHiE4tqO/VpauAa8T3XGrap18cDrxw8bEqvYUjxUbojy92UyhXntm0iqWBfubLAgoWYZ0PikVxxW6E73wf9suEnQkIUMIDfRAdDYHhQDeWkANt7siZYGDx0zf8iBTkTGrdV6uTx+G9+LxzoSoO5oXyCQD30m9/a6dqftTdkCk5i7i2Xr+EpLHzKK/jG2rR+zmDT5dZKEAbVyK0FcxHHB4+r/8VKZP7C5MhqD11Irc2Xr+9iB/lQTwvmDicc=
+  #   file: "psyplot-conda-*-${OS_NAME}-*.*"
+  #   file_glob: true
+  #   overwrite: true
+  #   skip_cleanup: true
+  #   on:
+  #     repo: Chilipp/psyplot-conda
+  #     tags: true
   - provider: script
     script: ci/deploy_anaconda.sh
     skip_cleanup: true
